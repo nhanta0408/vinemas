@@ -1,7 +1,11 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:vinemas_app/features/login/presentation/login_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:vinemas_app/core/routes/route.dart';
 import 'core/themes/theme_data.dart';
+import 'features/login/presentation/bloc/login_bloc.dart';
+import 'features/login/presentation/views/login_screen.dart';
 import 'l10n/generated/app_localizations.dart';
 
 void main() {
@@ -34,10 +38,11 @@ class _MyAppState extends State<MyApp> {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         locale: const Locale('vi'),
-        onGenerateRoute: (settings) {
-          switch (settings.name) {}
-          return null;
-        },
-        home: const LoginScreen());
+        onGenerateRoute: RouteGenerator.generateRoute,
+        builder: EasyLoading.init(),
+        home: BlocProvider(
+          create: (context) => LoginBloc(),
+          child: const LoginScreen(),
+        ));
   }
 }

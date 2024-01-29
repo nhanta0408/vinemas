@@ -1,10 +1,21 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vinemas_app/core/common/contants/assets.dart';
 import 'package:vinemas_app/core/utils/localizations.dart';
+import 'package:vinemas_app/features/home/presentation/home_route.dart';
+import 'package:vinemas_app/features/login/presentation/bloc/login_event.dart';
+import 'package:vinemas_app/features/login/presentation/login_routes.dart';
 
-import '../../../core/common/widget/customize_button.dart';
+import '../../../../core/common/widget/customize_button.dart';
+import '../bloc/login_bloc.dart';
+import '../bloc/login_state.dart';
 import 'widgets/login_textfield.dart';
+
+part 'login_screen.action.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,36 +26,43 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   late ThemeData theme;
+
+  LoginBloc get bloc => BlocProvider.of(context);
   @override
   Widget build(BuildContext context) {
     theme = Theme.of(context);
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(
-                height: 45,
+    return BlocConsumer<LoginBloc, LoginState>(
+      listener: blocListener,
+      builder: (context, state) {
+        return Scaffold(
+          resizeToAvoidBottomInset: true,
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(
+                    height: 45,
+                  ),
+                  SvgPicture.asset(
+                    Assets.svg.icAppIcon,
+                    width: 120,
+                    height: 120,
+                  ),
+                  const SizedBox(
+                    height: 45,
+                  ),
+                  _buildMainLogin(context),
+                  const SizedBox(
+                    height: 45,
+                  ),
+                  _buildSignInWith(context)
+                ],
               ),
-              SvgPicture.asset(
-                Assets.svg.icAppIcon,
-                width: 120,
-                height: 120,
-              ),
-              const SizedBox(
-                height: 45,
-              ),
-              _buildMainLogin(context),
-              const SizedBox(
-                height: 45,
-              ),
-              _buildSignInWith(context)
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -71,16 +89,23 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Container(
                 alignment: Alignment.centerRight,
-                child: Text(
-                  translate(context).forgotPassword,
-                  style: theme.textTheme.bodyMedium
-                      ?.copyWith(color: theme.colorScheme.primary),
+                child: GestureDetector(
+                  onTap: () {
+                    onForgotPassword();
+                  },
+                  child: Text(
+                    translate(context).forgotPassword,
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(color: theme.colorScheme.primary),
+                  ),
                 )),
             const SizedBox(
               height: 24,
             ),
             CustomizedButton(
-              onTap: () {},
+              onTap: () {
+                onLogin();
+              },
               backgroundColor: theme.colorScheme.primary,
               textColor: theme.colorScheme.onPrimary,
               child: Text(
@@ -112,14 +137,20 @@ class _LoginScreenState extends State<LoginScreen> {
         ]);
   }
 
-  SizedBox _buildSignin({required bool isGoogle}) {
+  Widget _buildSignin({required bool isGoogle}) {
     return SizedBox(
         width: 81,
         height: 81,
         child: Column(
           children: [
-            Image.asset(
-                isGoogle ? Assets.images.icGGSignIn : Assets.images.icFBSignIn),
+            InkWell(
+              onTap: () {
+                isGoogle ? onGoogleSignin() : onFacebookSignin();
+              },
+              child: Image.asset(isGoogle
+                  ? Assets.images.icGGSignIn
+                  : Assets.images.icFBSignIn),
+            ),
             const SizedBox(
               height: 12,
             ),
