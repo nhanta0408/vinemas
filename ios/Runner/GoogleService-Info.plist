@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>653927138262-rf43vsqenq65h9qj2ujfth5r6eo2nleo.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.653927138262-rf43vsqenq65h9qj2ujfth5r6eo2nleo</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>653927138262-j2c587vftkkt4qamrcnh10dduvk1ru3i.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC5pFnH8sjfLPeOfGJ8wnQg27aSCkl8RHc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>653927138262</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.nhanta.vinemas</string>
+	<key>PROJECT_ID</key>
+	<string>vinemas-nhanta</string>
+	<key>STORAGE_BUCKET</key>
+	<string>vinemas-nhanta.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:653927138262:ios:b1b73ad4a3ddc9015b1a77</string>
+</dict>
+</plist>
