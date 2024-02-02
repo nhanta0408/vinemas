@@ -6,5 +6,8 @@
     "orSigninWith": "Or sign in with",
     "profile": "Profile",
     "upcoming": "Upcoming",
-    "nowInCinemas": "Now in cinemas"
+    "nowInCinemas": "Now in cinemas",
+    "about": "About",
+    "sessions": "Sessions",
+    "selectSessions": "Select sessions"
 }

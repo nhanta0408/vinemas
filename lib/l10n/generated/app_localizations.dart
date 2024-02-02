@@ -140,6 +140,24 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Đang chiếu'**
   String get nowInCinemas;
+
+  /// No description provided for @about.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giới thiệu'**
+  String get about;
+
+  /// No description provided for @sessions.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lịch chiếu'**
+  String get sessions;
+
+  /// No description provided for @selectSessions.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đặt lịch chiếu'**
+  String get selectSessions;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

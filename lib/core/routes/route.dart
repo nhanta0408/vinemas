@@ -5,6 +5,8 @@ import 'package:vinemas_app/features/home/presentation/views/home_screen.dart';
 import 'package:vinemas_app/features/login/presentation/bloc/login_bloc.dart';
 import 'package:vinemas_app/features/login/presentation/login_routes.dart';
 import 'package:vinemas_app/features/login/presentation/views/login_screen.dart';
+import 'package:vinemas_app/features/movie_detail/presentation/movie_detail_route.dart';
+import 'package:vinemas_app/features/movie_detail/presentation/views/movie_detail_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -19,6 +21,10 @@ class RouteGenerator {
       case HomeRoute.routeName:
         return MaterialPageRoute(builder: (context) {
           return const HomeScreen();
+        });
+      case MovieDetailRoute.routeName:
+        return MaterialPageRoute(builder: (context) {
+          return const MovieDetailScreen();
         });
     }
     return null;

@@ -5,6 +5,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:vinemas_app/core/common/contants/assets.dart';
 import 'package:vinemas_app/core/common/widget/customize_button.dart';
 import 'package:vinemas_app/core/utils/localizations.dart';
+import 'package:vinemas_app/features/movie_detail/presentation/movie_detail_route.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -207,48 +208,53 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildNowInCinemasItem(String item) {
-    return Column(
-      children: [
-        Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-          child: Stack(alignment: Alignment.topRight, children: [
-            Image.network(
-              'https://image.tmdb.org/t/p/w780$item',
-            ),
-            Container(
-              margin: const EdgeInsets.all(4),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: _themeData.colorScheme.primary),
-              child: Text(
-                '8.5',
-                style: _themeData.textTheme.labelMedium?.copyWith(
-                    color: _themeData.colorScheme.onPrimaryContainer),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, MovieDetailRoute.routeName);
+      },
+      child: Column(
+        children: [
+          Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+            child: Stack(alignment: Alignment.topRight, children: [
+              Image.network(
+                'https://image.tmdb.org/t/p/w780$item',
               ),
-            )
-          ]),
-        ),
-        Container(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'Spider Man - Far from home',
-            maxLines: 2,
-            style: _themeData.textTheme.titleMedium
-                ?.copyWith(color: _themeData.colorScheme.onPrimary),
+              Container(
+                margin: const EdgeInsets.all(4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: _themeData.colorScheme.primary),
+                child: Text(
+                  '8.5',
+                  style: _themeData.textTheme.labelMedium?.copyWith(
+                      color: _themeData.colorScheme.onPrimaryContainer),
+                ),
+              )
+            ]),
           ),
-        ),
-        Container(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'Action',
-            maxLines: 1,
-            style: _themeData.textTheme.bodyMedium
-                ?.copyWith(color: _themeData.colorScheme.primaryContainer),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Spider Man - Far from home',
+              maxLines: 2,
+              style: _themeData.textTheme.titleMedium
+                  ?.copyWith(color: _themeData.colorScheme.onPrimary),
+            ),
           ),
-        )
-      ],
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Action',
+              maxLines: 1,
+              style: _themeData.textTheme.bodyMedium
+                  ?.copyWith(color: _themeData.colorScheme.primaryContainer),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

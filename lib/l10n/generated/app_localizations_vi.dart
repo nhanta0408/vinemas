@@ -27,4 +27,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get nowInCinemas => 'Đang chiếu';
+
+  @override
+  String get about => 'Giới thiệu';
+
+  @override
+  String get sessions => 'Lịch chiếu';
+
+  @override
+  String get selectSessions => 'Đặt lịch chiếu';
 }

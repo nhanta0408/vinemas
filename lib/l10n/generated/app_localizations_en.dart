@@ -27,4 +27,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nowInCinemas => 'Now in cinemas';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get sessions => 'Sessions';
+
+  @override
+  String get selectSessions => 'Select sessions';
 }
