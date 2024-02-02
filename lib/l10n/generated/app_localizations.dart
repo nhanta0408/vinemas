@@ -122,6 +122,12 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Hoặc đăng nhập với'**
   String get orSigninWith;
+
+  /// No description provided for @profile.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ sơ'**
+  String get profile;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

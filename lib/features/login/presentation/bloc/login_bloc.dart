@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vinemas_app/features/home/presentation/home_route.dart';
+import 'package:vinemas_app/features/home/presentation/views/home_screen.dart';
 import 'package:vinemas_app/features/login/data/models/sign_in_model.dart';
 import 'package:vinemas_app/features/login/domain/usecases/login_usecases.dart';
 

@@ -8,8 +8,12 @@ extension _LoginScreenAction on _LoginScreenState {
       EasyLoading.dismiss();
     }
     if (state is SuccessfullyLoginState) {
-      showOkAlertDialog(
-          context: context, title: 'Success', message: state.successfulMessage);
+      // showOkAlertDialog(
+      //   context: context,
+      //   title: 'Success',
+      //   message: state.successfulMessage,
+      // );
+      Navigator.popAndPushNamed(context, HomeRoute.routeName);
     }
     if (state is FailedLoginState) {
       showOkAlertDialog(

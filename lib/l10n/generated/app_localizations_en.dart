@@ -18,4 +18,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get orSigninWith => 'Or sign in with';
+
+  @override
+  String get profile => 'Profile';
 }

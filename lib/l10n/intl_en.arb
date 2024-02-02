@@ -3,5 +3,6 @@
     "username": "Username",
     "password": "Password",
     "forgotPassword": "Forgot password?",
-    "orSigninWith": "Or sign in with"
+    "orSigninWith": "Or sign in with",
+    "profile": "Profile"
 }

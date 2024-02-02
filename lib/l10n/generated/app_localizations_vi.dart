@@ -18,4 +18,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get orSigninWith => 'Hoặc đăng nhập với';
+
+  @override
+  String get profile => 'Hồ sơ';
 }

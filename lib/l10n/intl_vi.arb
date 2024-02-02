@@ -3,5 +3,6 @@
     "username": "Tên đăng nhập",
     "password": "Mật khẩu",
     "forgotPassword": "Quên mật khẩu?",
-    "orSigninWith": "Hoặc đăng nhập với"
+    "orSigninWith": "Hoặc đăng nhập với",
+    "profile": "Hồ sơ"
 }

@@ -5,6 +5,8 @@ class Assets {
 
 class SvgAssets {
   final String icAppIcon = 'assets/svg/app_icon.svg';
+  final String icLocation = 'assets/svg/ic_location.svg';
+  final String icLanguage = 'assets/svg/ic_language.svg';
 }
 
 class ImageAssets {

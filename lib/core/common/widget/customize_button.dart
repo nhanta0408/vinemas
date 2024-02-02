@@ -3,24 +3,28 @@ import 'package:flutter/material.dart';
 class CustomizedButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
+  final TextStyle? textStyle;
   final String? text;
   final Function onTap;
   final double? borderRadius;
   final Widget? child;
+  final double? height;
   const CustomizedButton(
       {super.key,
       this.backgroundColor,
       this.textColor,
+      this.textStyle,
       required this.onTap,
       this.text,
       this.borderRadius,
-      this.child});
+      this.child,
+      this.height});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SizedBox(
-      height: 50,
+      height: height ?? 50,
       child: ElevatedButton(
           onPressed: () {
             onTap();
@@ -39,7 +43,7 @@ class CustomizedButton extends StatelessWidget {
             child: child ??
                 Text(
                   text ?? 'Button',
-                  style: theme.textTheme.titleMedium,
+                  style: textStyle ?? theme.textTheme.titleMedium,
                 ),
           )),
     );
