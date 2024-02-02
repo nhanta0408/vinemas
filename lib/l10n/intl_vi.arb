@@ -4,5 +4,7 @@
     "password": "Mật khẩu",
     "forgotPassword": "Quên mật khẩu?",
     "orSigninWith": "Hoặc đăng nhập với",
-    "profile": "Hồ sơ"
+    "profile": "Hồ sơ",
+    "upcoming": "Sắp chiếu",
+    "nowInCinemas": "Đang chiếu"
 }

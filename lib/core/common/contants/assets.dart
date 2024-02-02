@@ -7,6 +7,7 @@ class SvgAssets {
   final String icAppIcon = 'assets/svg/app_icon.svg';
   final String icLocation = 'assets/svg/ic_location.svg';
   final String icLanguage = 'assets/svg/ic_language.svg';
+  final String icSearch = 'assets/svg/ic_search.svg';
 }
 
 class ImageAssets {

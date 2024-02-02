@@ -21,4 +21,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get profile => 'Hồ sơ';
+
+  @override
+  String get upcoming => 'Sắp chiếu';
+
+  @override
+  String get nowInCinemas => 'Đang chiếu';
 }

@@ -26,11 +26,9 @@ class _LoginTextFieldState extends State<LoginTextField> {
             obscuringCharacter: '•',
             decoration: InputDecoration(
                 isCollapsed: true,
-                prefixIcon: Container(
-                  child: Icon(
-                    widget.isPassword ? Icons.lock : Icons.person,
-                    color: colorScheme.primary,
-                  ),
+                prefixIcon: Icon(
+                  widget.isPassword ? Icons.lock : Icons.person,
+                  color: colorScheme.primary,
                 ),
                 suffixIcon: GestureDetector(
                     onTap: () {

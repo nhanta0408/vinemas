@@ -39,7 +39,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final MediaQueryData data = MediaQuery.of(context);
+    return MediaQuery(
+      data: data.copyWith(textScaler: const TextScaler.linear(1.0)),
+      child: MaterialApp(
         title: 'Flutter Demo',
         theme: lightTheme,
         darkTheme: darkTheme,
@@ -52,6 +55,8 @@ class _MyAppState extends State<MyApp> {
         home: BlocProvider(
           create: (context) => LoginBloc(),
           child: const LoginScreen(),
-        ));
+        ),
+      ),
+    );
   }
 }

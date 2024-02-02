@@ -22,23 +22,31 @@ extension _LoginScreenAction on _LoginScreenState {
   }
 
   void onLogin() {
-    print('On login');
+    if (kDebugMode) {
+      print('On login');
+    }
     // Navigator.pushNamed(context, HomeRoute.routeName);
     bloc.add(UserPasswordLoginEvent(
         username: 'thnhan.sdh212@hcmut.edu.vn', password: '123456'));
   }
 
   void onForgotPassword() {
-    print('On forgot password');
+    if (kDebugMode) {
+      print('On forgot password');
+    }
   }
 
   void onFacebookSignin() {
-    print('On Facebook login');
+    if (kDebugMode) {
+      print('On Facebook login');
+    }
     bloc.add(ThirdPartyLoginEvent(isGoogle: false));
   }
 
   void onGoogleSignin() {
-    print('On Google login');
+    if (kDebugMode) {
+      print('On Google login');
+    }
     bloc.add(ThirdPartyLoginEvent(isGoogle: true));
   }
 }

@@ -128,6 +128,18 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Hồ sơ'**
   String get profile;
+
+  /// No description provided for @upcoming.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sắp chiếu'**
+  String get upcoming;
+
+  /// No description provided for @nowInCinemas.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang chiếu'**
+  String get nowInCinemas;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

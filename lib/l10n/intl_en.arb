@@ -4,5 +4,7 @@
     "password": "Password",
     "forgotPassword": "Forgot password?",
     "orSigninWith": "Or sign in with",
-    "profile": "Profile"
+    "profile": "Profile",
+    "upcoming": "Upcoming",
+    "nowInCinemas": "Now in cinemas"
 }
