@@ -1,22 +1,28 @@
 import 'dart:async';
 
 import 'package:device_preview/device_preview.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:vinemas_app/core/routes/route.dart';
-import 'package:vinemas_app/firebase_options.dart';
+import 'core/common/service/dio_client.dart';
+import 'core/routes/route.dart';
 import 'core/themes/theme_data.dart';
+import 'core/utils/dotenv.dart';
 import 'features/login/presentation/bloc/login_bloc.dart';
 import 'features/login/presentation/views/login_screen.dart';
+import 'firebase_options.dart';
 import 'l10n/generated/app_localizations.dart';
 
+DioClient dioClient = DioClient();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await DotEnvUtils.initDotEnv();
+  dioClient.initDio();
   runApp(
     DevicePreview(
       enabled: true,
@@ -26,7 +32,7 @@ void main() async {
       builder: (context) => const MyApp(),
     ),
   );
-  runZonedGuarded(() async {}, (error, stack) {});
+  await runZonedGuarded(() async {}, (error, stack) {});
 }
 
 class MyApp extends StatefulWidget {

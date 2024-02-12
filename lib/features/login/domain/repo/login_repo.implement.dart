@@ -3,8 +3,9 @@ part of 'login_repo.dart';
 class LoginRepoImpl implements LoginRepo {
   final AuthRemoteDatasource _authRemoteDatasource = AuthRemoteDatasourceImpl();
   @override
-  Future<UserCredential?> siginWithUserPassword(
-      {required SignInModel signInModel}) {
+  Future<UserCredential?> siginWithUserPassword({
+    required SignInModel signInModel,
+  }) {
     return _authRemoteDatasource.sigin(signInModel);
   }
 

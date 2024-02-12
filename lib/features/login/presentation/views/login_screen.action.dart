@@ -17,7 +17,10 @@ extension _LoginScreenAction on _LoginScreenState {
     }
     if (state is FailedLoginState) {
       showOkAlertDialog(
-          context: context, title: 'Error', message: state.errorMessage);
+        context: context,
+        title: 'Error',
+        message: state.errorMessage,
+      );
     }
   }
 
@@ -25,9 +28,13 @@ extension _LoginScreenAction on _LoginScreenState {
     if (kDebugMode) {
       print('On login');
     }
-    // Navigator.pushNamed(context, HomeRoute.routeName);
-    bloc.add(UserPasswordLoginEvent(
-        username: 'thnhan.sdh212@hcmut.edu.vn', password: '123456'));
+    Navigator.pushNamed(context, HomeRoute.routeName);
+    // bloc.add(
+    //   UserPasswordLoginEvent(
+    //     username: 'thnhan.sdh212@hcmut.edu.vn',
+    //     password: '123456',
+    //   ),
+    // );
   }
 
   void onForgotPassword() {

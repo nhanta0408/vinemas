@@ -1,14 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:vinemas_app/features/login/data/datasource/auth_remote_datasource.dart';
-import 'package:vinemas_app/features/login/data/models/sign_in_model.dart';
+import 'auth_remote_datasource.dart';
+import '../models/sign_in_model.dart';
 
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<UserCredential?> sigin(SignInModel siginModel) async {
     final result = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: siginModel.username, password: siginModel.password);
+      email: siginModel.username,
+      password: siginModel.password,
+    );
     return result;
   }
 
