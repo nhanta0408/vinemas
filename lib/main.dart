@@ -10,6 +10,7 @@ import 'core/common/service/dio_client.dart';
 import 'core/routes/route.dart';
 import 'core/themes/theme_data.dart';
 import 'core/utils/dotenv.dart';
+import 'di/di.dart';
 import 'features/login/presentation/bloc/login_bloc.dart';
 import 'features/login/presentation/views/login_screen.dart';
 import 'firebase_options.dart';
@@ -23,6 +24,7 @@ void main() async {
   );
   await DotEnvUtils.initDotEnv();
   dioClient.initDio();
+  setupGetIt();
   runApp(
     DevicePreview(
       enabled: true,

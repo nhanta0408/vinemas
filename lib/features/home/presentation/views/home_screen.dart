@@ -1,15 +1,25 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../../../core/common/contants/assets.dart';
+import '../../../../core/common/constants/app_constants.dart';
+import '../../../../core/common/constants/assets.dart';
+import '../../../../core/common/enums/genre.dart';
+import '../../../../core/common/model/bloc_status_state.dart';
 import '../../../../core/common/widget/customize_button.dart';
+import '../../../../core/utils/app_function.dart';
 import '../../../../core/utils/localizations.dart';
 import '../../../movie_detail/presentation/movie_detail_route.dart';
+import '../../../movie_detail/presentation/views/movie_detail_screen.dart';
+import '../../data/model/movie.dart';
 import '../bloc/home_bloc.dart';
 import '../bloc/home_event.dart';
 import '../bloc/home_state.dart';
+
+part 'home_screen.action.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,20 +36,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    bloc.add(HomeGetNowPlayingMovieEvent());
+    Future.delayed(Duration.zero, () {
+      bloc.add(
+        HomeGetNowPlayingMovieEvent(
+          languageCode: Localizations.localeOf(context).languageCode,
+        ),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     _themeData = Theme.of(context);
 
-    final List<String> list = [
-      '/sjLLA6PGxoN0kmCuwxgb8CR0F29.jpg',
-      '/pyVuoZzw2mpBmcYE8sb5EB8NwJ6.jpg',
-      '/5ADSui2pPyBuIxfxXKiptTdGAT8.jpg',
-      '/tq9dWzV5IORonLIsBqUjYhVaBwa.jpg',
-      '/qgotFL0XUevylN2enbc3SeT7x2m.jpg',
-    ];
     final size = MediaQuery.of(context).size;
     final cardWidth = (size.width - 48) / 2;
     final cardHeight = cardWidth * 278 / 163 + 40;
@@ -61,7 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: CustomScrollView(
                   slivers: [
                     SliverToBoxAdapter(
-                      child: _buildCarouselUpcoming(size, list),
+                      child:
+                          _buildCarouselUpcoming(size, state.nowPlayingMovies),
                     ),
                     SliverToBoxAdapter(
                       child: _buildNowInCinemasTitle(context),
@@ -69,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SliverPadding(
                       padding: const EdgeInsets.all(16),
                       sliver: SliverGrid.builder(
-                        itemCount: list.length,
+                        itemCount: state.nowPlayingMovies?.length,
                         // gridDelegate:
                         // const SliverGridDelegateWithMaxCrossAxisExtent(
                         //     maxCrossAxisExtent: 163,
@@ -83,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisSpacing: 16,
                         ),
                         itemBuilder: (context, index) {
-                          final item = list[index];
+                          final item = state.nowPlayingMovies?[index];
                           return _buildNowInCinemasItem(item);
                         },
                       ),
@@ -149,7 +159,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildCarouselUpcoming(Size size, List<String> list) {
+  Widget _buildCarouselUpcoming(Size size, List<Movie>? movies) {
+    if (movies == null) {
+      return const SizedBox();
+    }
     return Container(
       width: double.infinity,
       color: _themeData.colorScheme.background,
@@ -181,14 +194,14 @@ class _HomeScreenState extends State<HomeScreen> {
               viewportFraction: 0.55,
               enlargeStrategy: CenterPageEnlargeStrategy.zoom,
             ),
-            items: list.map(_buildCarouselItem).toList(),
+            items: movies.map(_buildCarouselItem).toList(),
           ),
           const SizedBox(
             height: 16,
           ),
           AnimatedSmoothIndicator(
             activeIndex: currentCarouselIndex,
-            count: list.length,
+            count: movies.length,
             effect: ExpandingDotsEffect(
               dotWidth: 8,
               dotHeight: 8,
@@ -201,14 +214,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildCarouselItem(String item) {
+  Widget _buildCarouselItem(Movie item) {
     return GestureDetector(
       onTap: () {},
       child: Container(
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
         child: Image.network(
-          'https://image.tmdb.org/t/p/w780$item',
+          getImageUrl(item.posterPath),
         ),
       ),
     );
@@ -232,10 +245,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildNowInCinemasItem(String item) {
+  Widget _buildNowInCinemasItem(Movie? item) {
+    if (item == null) {
+      return const SizedBox();
+    }
+    final scoreBgColor = getVoteAverageBgColor(item.voteAverage, _themeData);
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, MovieDetailRoute.routeName);
+        Navigator.pushNamed(
+          context,
+          MovieDetailRoute.routeName,
+          arguments: MovieDetailScreenArg(movieId: item.id.toString()),
+        );
       },
       child: Column(
         children: [
@@ -246,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
               alignment: Alignment.topRight,
               children: [
                 Image.network(
-                  'https://image.tmdb.org/t/p/w780$item',
+                  getImageUrl(item.posterPath),
                 ),
                 Container(
                   margin: const EdgeInsets.all(4),
@@ -254,10 +275,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
-                    color: _themeData.colorScheme.primary,
+                    color: scoreBgColor,
                   ),
                   child: Text(
-                    '8.5',
+                    item.voteAverage?.toStringAsFixed(1) ?? '--',
                     style: _themeData.textTheme.labelMedium?.copyWith(
                       color: _themeData.colorScheme.onPrimaryContainer,
                     ),
@@ -269,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Spider Man - Far from home',
+              item.title ?? '--',
               maxLines: 2,
               style: _themeData.textTheme.titleMedium
                   ?.copyWith(color: _themeData.colorScheme.onPrimary),
@@ -278,7 +299,15 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Action',
+              item.genreIds
+                      ?.map(
+                        (e) => Genre.getGenreById(e)?.getGenreString(
+                          Localizations.localeOf(context).languageCode,
+                        ),
+                      )
+                      .join(', ') ??
+                  '',
+              overflow: TextOverflow.ellipsis,
               maxLines: 1,
               style: _themeData.textTheme.bodyMedium
                   ?.copyWith(color: _themeData.colorScheme.primaryContainer),

@@ -36,4 +36,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectSessions => 'Select sessions';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get byCinema => 'By cinema';
+
+  @override
+  String get unknown => 'Unknown';
+
+  @override
+  String get minutes => 'minutes';
+
+  @override
+  String get vote => 'vote';
 }

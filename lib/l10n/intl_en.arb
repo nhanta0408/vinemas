@@ -9,5 +9,10 @@
     "nowInCinemas": "Now in cinemas",
     "about": "About",
     "sessions": "Sessions",
-    "selectSessions": "Select sessions"
+    "selectSessions": "Select sessions",
+    "time": "Time",
+    "byCinema": "By cinema",
+    "unknown": "Unknown",
+    "minutes": "minutes",
+    "vote": "vote"
 }

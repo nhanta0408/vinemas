@@ -10,5 +10,7 @@ abstract class HomeRestApi {
   factory HomeRestApi(Dio dio, {String baseUrl}) = _HomeRestApi;
 
   @GET('/movie/now_playing')
-  Future<MovieListResponse> getNowPlayingMovies();
+  Future<MovieListResponse> getNowPlayingMovies(
+    @Query('language') String? language,
+  );
 }

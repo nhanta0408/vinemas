@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/common/contants/assets.dart';
+import '../../../../core/common/constants/assets.dart';
 import '../../../../core/common/widget/customize_button.dart';
 import '../../../../core/utils/localizations.dart';
 import '../../../home/presentation/home_route.dart';

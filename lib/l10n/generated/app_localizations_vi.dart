@@ -36,4 +36,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get selectSessions => 'Đặt lịch chiếu';
+
+  @override
+  String get time => 'Thời gian';
+
+  @override
+  String get byCinema => 'Theo rạp';
+
+  @override
+  String get unknown => 'Không cung cấp';
+
+  @override
+  String get minutes => 'phút';
+
+  @override
+  String get vote => 'lượt bình chọn';
 }

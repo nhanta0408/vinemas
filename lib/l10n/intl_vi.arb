@@ -9,5 +9,10 @@
     "nowInCinemas": "Đang chiếu",
     "about": "Giới thiệu",
     "sessions": "Lịch chiếu",
-    "selectSessions": "Đặt lịch chiếu"
+    "selectSessions": "Đặt lịch chiếu",
+    "time": "Thời gian",
+    "byCinema": "Theo rạp",
+    "unknown": "Không cung cấp",
+    "minutes": "phút",
+    "vote": "lượt bình chọn"
 }

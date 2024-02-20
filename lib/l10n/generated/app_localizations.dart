@@ -158,6 +158,36 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Đặt lịch chiếu'**
   String get selectSessions;
+
+  /// No description provided for @time.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thời gian'**
+  String get time;
+
+  /// No description provided for @byCinema.
+  ///
+  /// In vi, this message translates to:
+  /// **'Theo rạp'**
+  String get byCinema;
+
+  /// No description provided for @unknown.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không cung cấp'**
+  String get unknown;
+
+  /// No description provided for @minutes.
+  ///
+  /// In vi, this message translates to:
+  /// **'phút'**
+  String get minutes;
+
+  /// No description provided for @vote.
+  ///
+  /// In vi, this message translates to:
+  /// **'lượt bình chọn'**
+  String get vote;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

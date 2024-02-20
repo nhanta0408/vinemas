@@ -56,6 +56,8 @@ dependencies:
   retrofit: ^4.1.0
   freezed: ^2.4.7
   json_annotation: ^4.8.1
+  get_it: ^7.6.7
+  date_format: ^2.0.7
 
 dev_dependencies:
   flutter_test:
