@@ -5,7 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/utils/date_utils.dart';
 import '../../../../../core/utils/int_utils.dart';
 import '../../../../../core/utils/string_utils.dart';
+import '../../../../seat_selection/presentation/seat_selection_route.dart';
+import '../../../../seat_selection/presentation/views/seat_selection_screen.dart';
 import '../../../data/models/session_model.dart';
+import '../../../domain/entities/movie_detail_entity.dart';
 import '../../bloc/movie_detail_bloc.dart';
 import '../../bloc/movie_detail_event.dart';
 import '../widgets/by_cinema_top_button.dart';
@@ -14,9 +17,11 @@ import '../widgets/sort_top_button.dart';
 
 class SessionTabWidget extends StatefulWidget {
   List<SessionModel> sessions;
+  MovieDetailEntity? movieDetailEntity;
   SessionTabWidget({
     Key? key,
     required this.sessions,
+    this.movieDetailEntity,
   }) : super(key: key);
 
   @override
@@ -70,36 +75,32 @@ class _SessionTabWidgetState extends State<SessionTabWidget>
           ),
           child: Row(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 3,
-                child: Container(
-                  child: const Text(
-                    'Time',
-                    textAlign: TextAlign.center,
-                  ),
+                child: Text(
+                  'Time',
+                  textAlign: TextAlign.center,
                 ),
               ),
               Expanded(
                 flex: 9,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
+                  child: const Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         child: Text('Adult', textAlign: TextAlign.left),
                       ),
-                      const Expanded(
+                      Expanded(
                         child: Text('Child', textAlign: TextAlign.left),
                       ),
                       Expanded(
-                        child: Container(
-                          child: const Text(
-                            'Student',
-                            textAlign: TextAlign.left,
-                          ),
+                        child: Text(
+                          'Student',
+                          textAlign: TextAlign.left,
                         ),
                       ),
-                      const Expanded(
+                      Expanded(
                         child: Text('VIP', textAlign: TextAlign.left),
                       ),
                     ],
@@ -113,111 +114,80 @@ class _SessionTabWidgetState extends State<SessionTabWidget>
           child: ListView.separated(
             itemBuilder: (context, index) {
               final session = widget.sessions[index];
-              return Container(
-                height: 78,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        children: [
-                          Text(
-                            session.time?.toTimeFormat() ?? '',
-                            style: _textTheme.titleMedium,
-                          ),
-                          const SizedBox(
-                            height: 6,
-                          ),
-                          Text(
-                            session.filmFormat ?? '',
-                            style: _textTheme.bodySmall?.copyWith(
-                              color: _colorScheme.primaryContainer,
-                            ),
-                          ),
-                        ],
-                      ),
+              return GestureDetector(
+                onTap: () {
+                  if (widget.movieDetailEntity == null) {
+                    return;
+                  }
+                  Navigator.pushNamed(
+                    context,
+                    SeatSelectionRoute.routeName,
+                    arguments: SeatSelectionScreenArg(
+                      sessionModel: session,
+                      movieDetailEntity: widget.movieDetailEntity!,
                     ),
-                    VerticalDivider(
-                      width: 1,
-                      thickness: 1,
-                      indent: 0,
-                      endIndent: 0,
-                      color: _colorScheme.outline,
-                    ),
-                    Expanded(
-                      flex: 9,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                  );
+                },
+                child: Container(
+                  height: 78,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              session.theaterName ?? '',
+                              session.time?.toTimeFormat() ?? '',
                               style: _textTheme.titleMedium,
                             ),
                             const SizedBox(
                               height: 6,
                             ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    session.adultCost
-                                            ?.toInt()
-                                            .addCommas()
-                                            .addUnitPost('đ') ??
-                                        '',
-                                    style: _textTheme.bodySmall,
-                                    maxLines: 1,
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    session.childCost
-                                            ?.toInt()
-                                            .addCommas()
-                                            .addUnitPost('đ') ??
-                                        '',
-                                    style: _textTheme.bodySmall,
-                                    maxLines: 1,
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    child: Text(
-                                      session.studentCost
-                                              ?.toInt()
-                                              .addCommas()
-                                              .addUnitPost('đ') ??
-                                          '',
-                                      style: _textTheme.bodySmall,
-                                      maxLines: 1,
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    session.vipCost
-                                            ?.toInt()
-                                            .addCommas()
-                                            .addUnitPost('đ') ??
-                                        '',
-                                    maxLines: 1,
-                                    style: _textTheme.bodySmall,
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              session.filmFormat ?? '',
+                              style: _textTheme.bodySmall?.copyWith(
+                                color: _colorScheme.primaryContainer,
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                      VerticalDivider(
+                        width: 1,
+                        thickness: 1,
+                        indent: 0,
+                        endIndent: 0,
+                        color: _colorScheme.outline,
+                      ),
+                      Expanded(
+                        flex: 9,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                session.theaterName ?? '',
+                                style: _textTheme.titleMedium,
+                              ),
+                              const SizedBox(
+                                height: 6,
+                              ),
+                              Row(
+                                children: [
+                                  _buildTicketCost(session.adultCost),
+                                  _buildTicketCost(session.childCost),
+                                  _buildTicketCost(session.studentCost),
+                                  _buildTicketCost(session.vipCost),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
@@ -231,6 +201,17 @@ class _SessionTabWidgetState extends State<SessionTabWidget>
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildTicketCost(double? cost) {
+    return Expanded(
+      child: Text(
+        cost?.toInt().addCommas().addUnitPost('đ') ?? '',
+        style: _textTheme.bodySmall,
+        maxLines: 1,
+        textAlign: TextAlign.left,
+      ),
     );
   }
 

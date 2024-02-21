@@ -103,6 +103,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 ),
                 SessionTabWidget(
                   sessions: state.sessions ?? [],
+                  movieDetailEntity: state.movieDetail,
                 ),
               ],
             ),

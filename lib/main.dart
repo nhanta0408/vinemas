@@ -34,7 +34,7 @@ void main() async {
       builder: (context) => const MyApp(),
     ),
   );
-  await runZonedGuarded(() async {}, (error, stack) {});
+  configLoading();
 }
 
 class MyApp extends StatefulWidget {
@@ -67,4 +67,10 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..userInteractions = false
+    ..dismissOnTap = false;
 }

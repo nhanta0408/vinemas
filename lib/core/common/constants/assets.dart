@@ -10,6 +10,11 @@ class SvgAssets {
   final String icSearch = 'assets/svg/ic_search.svg';
   final String icCalendar = 'assets/svg/ic_calendar.svg';
   final String icSort = 'assets/svg/ic_sort.svg';
+  final String icEnlarge = 'assets/svg/ic_enlarge.svg';
+  final String icClock = 'assets/svg/ic_clock.svg';
+  final String icClose = 'assets/svg/ic_close.svg';
+  final String screenVector = 'assets/svg/screen_vector.svg';
+  final String tearLine = 'assets/svg/tear_line.svg';
 }
 
 class ImageAssets {
