@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -134,6 +135,8 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
           ),
           Expanded(
             child: SeatMapWidget(
+              movieDetail: widget.movieDetailEntity,
+              session: widget.sessionModel,
               onBookTicket: (ticket) {
                 Navigator.push(
                   context,

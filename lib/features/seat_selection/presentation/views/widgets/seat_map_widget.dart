@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -8,14 +7,20 @@ import '../../../../../core/common/widget/customize_button.dart';
 import '../../../../../core/utils/app_function.dart';
 import '../../../../../core/utils/int_utils.dart';
 import '../../../../../core/utils/string_utils.dart';
+import '../../../../movie_detail/data/models/session_model.dart';
+import '../../../../movie_detail/domain/entities/movie_detail_entity.dart';
 import '../../../domain/entities/seat_theater_entity.dart';
 import '../../../domain/entities/ticket_entity.dart';
 
 class SeatMapWidget extends StatefulWidget {
+  MovieDetailEntity? movieDetail;
+  SessionModel? session;
   Function(TicketEntity) onBookTicket;
   SeatMapWidget({
     Key? key,
     required this.onBookTicket,
+    this.movieDetail,
+    this.session,
   }) : super(key: key);
 
   @override
@@ -168,7 +173,15 @@ class _SeatMapWidgetState extends State<SeatMapWidget> {
               ),
               CustomizedButton(
                 onTap: () {
-                  widget.onBookTicket(TicketEntity());
+                  final ticket = TicketEntity();
+                  widget.onBookTicket(
+                    TicketEntity(
+                      movie: widget.movieDetail,
+                      session: widget.session,
+                      seats: selectedSeat,
+                      totalAmount: selectedSeat.length * 100000,
+                    ),
+                  );
                 },
                 text: 'Đặt ${selectedSeat.length} vé',
                 backgroundColor: _colorScheme.primary,

@@ -3,8 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/common/constants/assets.dart';
 import '../../../../../core/common/widget/customize_button.dart';
+import '../../../../../core/utils/date_utils.dart';
 import '../../../../../core/utils/int_utils.dart';
 import '../../../../../core/utils/string_utils.dart';
+import '../../../../ticket_detail/presentation/ticket_detail_route.dart';
+import '../../../../ticket_detail/presentation/views/ticket_detail_screen.dart';
 import '../../../domain/entities/ticket_entity.dart';
 
 // ignore: must_be_immutable
@@ -83,7 +86,7 @@ class _SeatSelectionPaymentConfirmScreenState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'The Batman',
+                            widget.ticketEntity.movie?.title ?? '',
                             style: _textTheme.titleMedium,
                           ),
                           const SizedBox(
@@ -91,17 +94,29 @@ class _SeatSelectionPaymentConfirmScreenState
                           ),
                           _buildRowItem(
                             title: 'Cinema',
-                            value: 'CGV Vạn Hạnh Mall',
+                            value:
+                                widget.ticketEntity.session?.theaterName ?? '',
                           ),
                           _buildRowItem(
                             title: 'Date',
-                            value: '6 April 2022, 14:40',
+                            value: widget.ticketEntity.session?.time
+                                    ?.toLocalHHnnddmmyyyy() ??
+                                '',
                           ),
                           _buildRowItem(
                             title: 'Thời lượng',
-                            value: '98 phút',
+                            value: widget.ticketEntity.movie?.runtime
+                                    ?.toStringAsFixed(0)
+                                    .addUnitPost('phút') ??
+                                '',
                           ),
-                          _buildRowItem(title: 'Seats', value: 'F8, F9'),
+                          _buildRowItem(
+                            title: 'Seats',
+                            value: widget.ticketEntity.seats
+                                    ?.map((e) => e.position)
+                                    .join(', ') ??
+                                '',
+                          ),
                           const SizedBox(
                             height: 16,
                           ),
@@ -112,14 +127,23 @@ class _SeatSelectionPaymentConfirmScreenState
                           const SizedBox(
                             height: 8,
                           ),
-                          _buildRowItem(title: 'Số lượng vé', value: '2'),
+                          _buildRowItem(
+                            title: 'Số lượng vé',
+                            value:
+                                widget.ticketEntity.seats?.length.toString() ??
+                                    '0',
+                          ),
                           _buildRowItem(
                             title: 'Đơn giá',
                             value: 100000.addCommas().addUnitPost('đ'),
                           ),
                           _buildRowItem(
                             title: 'Tổng tiền',
-                            value: 200000.addCommas().addUnitPost('đ'),
+                            value: widget.ticketEntity.totalAmount
+                                    ?.toInt()
+                                    .addCommas()
+                                    .addUnitPost('đ') ??
+                                '',
                           ),
                         ],
                       ),
@@ -134,7 +158,15 @@ class _SeatSelectionPaymentConfirmScreenState
                         vertical: 16,
                       ),
                       child: CustomizedButton(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            TicketDetailRoute.routeName,
+                            arguments: TicketDetailScreenArg(
+                              ticket: widget.ticketEntity,
+                            ),
+                          );
+                        },
                         text: 'Xác nhận',
                         backgroundColor: _colorScheme.primary,
                       ),
@@ -156,7 +188,11 @@ class _SeatSelectionPaymentConfirmScreenState
         children: [
           SizedBox(
             width: 90,
-            child: Text(title),
+            child: Text(
+              title,
+              style: _textTheme.bodyMedium
+                  ?.copyWith(color: _colorScheme.primaryContainer),
+            ),
           ),
           const SizedBox(
             width: 16,

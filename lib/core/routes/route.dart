@@ -12,6 +12,8 @@ import '../../features/movie_detail/presentation/movie_detail_route.dart';
 import '../../features/movie_detail/presentation/views/movie_detail_screen.dart';
 import '../../features/seat_selection/presentation/seat_selection_route.dart';
 import '../../features/seat_selection/presentation/views/seat_selection_screen.dart';
+import '../../features/ticket_detail/presentation/ticket_detail_route.dart';
+import '../../features/ticket_detail/presentation/views/ticket_detail_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -60,6 +62,19 @@ class RouteGenerator {
             return SeatSelectionScreen(
               sessionModel: arg.sessionModel,
               movieDetailEntity: arg.movieDetailEntity,
+            );
+          },
+        );
+
+      case TicketDetailRoute.routeName:
+        if (settings.arguments is! TicketDetailScreenArg) {
+          return null;
+        }
+        final arg = settings.arguments as TicketDetailScreenArg;
+        return MaterialPageRoute(
+          builder: (context) {
+            return TicketDetailScreen(
+              ticket: arg.ticket,
             );
           },
         );
