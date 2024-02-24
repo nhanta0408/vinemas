@@ -13,8 +13,15 @@ class SvgAssets {
   final String icEnlarge = 'assets/svg/ic_enlarge.svg';
   final String icClock = 'assets/svg/ic_clock.svg';
   final String icClose = 'assets/svg/ic_close.svg';
+  final String icLogout = 'assets/svg/ic_logout.svg';
   final String screenVector = 'assets/svg/screen_vector.svg';
   final String tearLine = 'assets/svg/tear_line.svg';
+  final String icVnFlag = 'assets/svg/ic_vn_flag.svg';
+  final String icEnFlag = 'assets/svg/ic_en_flag.svg';
+  final String icRadioChecked = 'assets/svg/ic_radio_checked.svg';
+  final String icRadioUnchecked = 'assets/svg/ic_radio_unchecked.svg';
+  final String icEmptyPopcorn = 'assets/svg/ic_empty_popcorn.svg';
+  final String icVisa = 'assets/svg/ic_visa.svg';
 }
 
 class ImageAssets {

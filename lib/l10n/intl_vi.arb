@@ -14,5 +14,8 @@
     "byCinema": "Theo rạp",
     "unknown": "Không cung cấp",
     "minutes": "phút",
-    "vote": "lượt bình chọn"
+    "vote": "lượt bình chọn",
+    "male": "Nam",
+    "female": "Nữ",
+    "other": "Khác"
 }

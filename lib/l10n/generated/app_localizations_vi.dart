@@ -51,4 +51,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get vote => 'lượt bình chọn';
+
+  @override
+  String get male => 'Nam';
+
+  @override
+  String get female => 'Nữ';
+
+  @override
+  String get other => 'Khác';
 }

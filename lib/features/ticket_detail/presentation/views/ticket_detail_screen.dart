@@ -109,6 +109,9 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                   style: _textTheme.bodyMedium
                       ?.copyWith(color: _colorScheme.primaryContainer),
                 ),
+                const SizedBox(
+                  height: 16,
+                ),
                 SvgPicture.asset(
                   Assets.svg.tearLine,
                   width: width,

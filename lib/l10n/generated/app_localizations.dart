@@ -188,6 +188,24 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'lượt bình chọn'**
   String get vote;
+
+  /// No description provided for @male.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nam'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nữ'**
+  String get female;
+
+  /// No description provided for @other.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khác'**
+  String get other;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

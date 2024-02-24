@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../di/di.dart';
+import '../../features/account/presentation/account_route.dart';
+import '../../features/account/presentation/views/account_screen.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
 import '../../features/home/presentation/home_route.dart';
 import '../../features/home/presentation/views/home_screen.dart';
@@ -76,6 +78,13 @@ class RouteGenerator {
             return TicketDetailScreen(
               ticket: arg.ticket,
             );
+          },
+        );
+
+      case AccountRoute.routeName:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const AccountScreen();
           },
         );
     }

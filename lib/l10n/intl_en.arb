@@ -14,5 +14,8 @@
     "byCinema": "By cinema",
     "unknown": "Unknown",
     "minutes": "minutes",
-    "vote": "vote"
+    "vote": "vote",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other"
 }

@@ -30,6 +30,7 @@ ThemeData darkTheme = ThemeData(
     outline: Color(0x1A6D9EFF),
     primaryContainer: Color(0xFF637394),
     surfaceVariant: Color(0x001e273a),
+    surfaceTint: Colors.transparent,
   ),
   datePickerTheme: const DatePickerThemeData().copyWith(
     surfaceTintColor: Colors.transparent,
@@ -66,5 +67,6 @@ ThemeData lightTheme = ThemeData(
     primaryContainer: Color(0xFF637394),
     onPrimaryContainer: Color(0xFF1A2232),
     surfaceVariant: Color(0x001e273a),
+    surfaceTint: Colors.transparent,
   ),
 );

@@ -12,6 +12,7 @@ import '../../../../core/common/model/bloc_status_state.dart';
 import '../../../../core/common/widget/customize_button.dart';
 import '../../../../core/utils/app_function.dart';
 import '../../../../core/utils/localizations.dart';
+import '../../../account/presentation/account_route.dart';
 import '../../../movie_detail/presentation/movie_detail_route.dart';
 import '../../../movie_detail/presentation/views/movie_detail_screen.dart';
 import '../../data/model/movie.dart';
@@ -126,7 +127,9 @@ class _HomeScreenState extends State<HomeScreen> {
           _buildHeaderGroup(asset: Assets.svg.icLocation, title: 'TP.HCM'),
           _buildHeaderGroup(asset: Assets.svg.icLanguage, title: 'Vie'),
           CustomizedButton(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, AccountRoute.routeName);
+            },
             text: translate(context).profile,
             backgroundColor: _themeData.colorScheme.primary,
             height: 40,
