@@ -18,6 +18,5 @@ class VideoMovieResponse {
   factory VideoMovieResponse.fromJson(Map<String, dynamic> json) =>
       _$VideoMovieResponseFromJson(json);
 
-  /// Connect the generated [_$VideoMovieResponseToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$VideoMovieResponseToJson(this);
 }

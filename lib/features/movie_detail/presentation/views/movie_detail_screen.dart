@@ -71,7 +71,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     return BlocConsumer<MovieDetailBloc, MovieDetailState>(
       listener: blocListener,
       builder: (context, state) {
-        final test = state;
         return DefaultTabController(
           length: 2,
           child: Scaffold(

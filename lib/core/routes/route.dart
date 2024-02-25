@@ -12,6 +12,7 @@ import '../../features/login/presentation/views/login_screen.dart';
 import '../../features/movie_detail/presentation/bloc/movie_detail_bloc.dart';
 import '../../features/movie_detail/presentation/movie_detail_route.dart';
 import '../../features/movie_detail/presentation/views/movie_detail_screen.dart';
+import '../../features/seat_selection/presentation/bloc/seat_selection_bloc.dart';
 import '../../features/seat_selection/presentation/seat_selection_route.dart';
 import '../../features/seat_selection/presentation/views/seat_selection_screen.dart';
 import '../../features/ticket_detail/presentation/ticket_detail_route.dart';
@@ -61,9 +62,12 @@ class RouteGenerator {
         final arg = settings.arguments as SeatSelectionScreenArg;
         return MaterialPageRoute(
           builder: (context) {
-            return SeatSelectionScreen(
-              sessionModel: arg.sessionModel,
-              movieDetailEntity: arg.movieDetailEntity,
+            return BlocProvider(
+              create: (context) => getIt<SeatSelectionBloc>(),
+              child: SeatSelectionScreen(
+                sessionModel: arg.sessionModel,
+                movieDetailEntity: arg.movieDetailEntity,
+              ),
             );
           },
         );

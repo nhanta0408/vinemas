@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../../core/common/constants/assets.dart';
 import '../../../../../core/common/widget/customize_button.dart';
@@ -173,12 +174,11 @@ class _SeatMapWidgetState extends State<SeatMapWidget> {
               ),
               CustomizedButton(
                 onTap: () {
-                  final ticket = TicketEntity();
                   widget.onBookTicket(
                     TicketEntity(
                       movie: widget.movieDetail,
                       session: widget.session,
-                      seats: selectedSeat,
+                      seats: selectedSeat.map((e) => e.position).toList(),
                       totalAmount: selectedSeat.length * 100000,
                     ),
                   );

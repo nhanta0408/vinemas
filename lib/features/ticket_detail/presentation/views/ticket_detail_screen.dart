@@ -147,10 +147,7 @@ class _TicketDetailScreenState extends State<TicketDetailScreen> {
                       ),
                       _buildRowItem(
                         title: 'Seats',
-                        value: widget.ticket.seats
-                                ?.map((e) => e.position)
-                                .join(', ') ??
-                            '',
+                        value: widget.ticket.seats?.join(', ') ?? '',
                       ),
                     ],
                   ),

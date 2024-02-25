@@ -14,6 +14,13 @@ import '../features/movie_detail/domain/repo/movie_detail_repository.implement.d
 import '../features/movie_detail/domain/usecases/movie_detail_usecases.dart';
 import '../features/movie_detail/domain/usecases/movie_detail_usecases.implement.dart';
 import '../features/movie_detail/presentation/bloc/movie_detail_bloc.dart';
+import '../features/seat_selection/data/local/ticket_local_storage.dart';
+import '../features/seat_selection/data/local/ticket_local_storage_sqf.implement.dart';
+import '../features/seat_selection/domain/repository/seat_selection_repository.dart';
+import '../features/seat_selection/domain/repository/seat_selection_repository.implement.dart';
+import '../features/seat_selection/domain/usecase/seat_selection_usecase.dart';
+import '../features/seat_selection/domain/usecase/seat_selection_usecase.implement.dart';
+import '../features/seat_selection/presentation/bloc/seat_selection_bloc.dart';
 import '../main.dart';
 
 final getIt = GetIt.instance;
@@ -45,5 +52,17 @@ void setupGetIt() {
     )
     ..registerFactory<MovieDetailBloc>(
       () => MovieDetailBloc(getIt<MovieDetailUsecases>()),
+    )
+    ..registerFactory<TicketLocalStorage>(
+      TicketLocalStorageSqfImplement.new,
+    )
+    ..registerFactory<SeatSelectionRepository>(
+      () => SeatSelectionRepositoryImplement(getIt<TicketLocalStorage>()),
+    )
+    ..registerFactory<SeatSelectionUsecase>(
+      () => SeatSelectionUsecaseImplement(getIt<SeatSelectionRepository>()),
+    )
+    ..registerFactory<SeatSelectionBloc>(
+      () => SeatSelectionBloc(getIt<SeatSelectionUsecase>()),
     );
 }

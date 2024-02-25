@@ -1,21 +1,26 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../../core/common/constants/assets.dart';
 import '../../../../../core/common/widget/customize_button.dart';
 import '../../../../../core/utils/date_utils.dart';
 import '../../../../../core/utils/int_utils.dart';
 import '../../../../../core/utils/string_utils.dart';
-import '../../../../ticket_detail/presentation/ticket_detail_route.dart';
-import '../../../../ticket_detail/presentation/views/ticket_detail_screen.dart';
 import '../../../domain/entities/ticket_entity.dart';
+import '../../bloc/seat_selection_bloc.dart';
+import '../../bloc/seat_selection_event.dart';
 
 // ignore: must_be_immutable
 class SeatSelectionPaymentConfirmScreen extends StatefulWidget {
   final TicketEntity ticketEntity;
+  final Function(TicketEntity) onConfirm;
   const SeatSelectionPaymentConfirmScreen({
     Key? key,
     required this.ticketEntity,
+    required this.onConfirm,
   }) : super(key: key);
 
   @override
@@ -40,142 +45,150 @@ class _SeatSelectionPaymentConfirmScreenState
     theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
     final width = size.width;
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 16,
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          ),
+          color: _colorScheme.background,
+        ),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 16,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  width: 24,
+                ),
+                Text(
+                  'Pay for ticket',
+                  style: _textTheme.titleMedium,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.close,
+                    color: _colorScheme.primaryContainer,
+                    size: 32,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 32,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: _colorScheme.outline,
+                borderRadius: BorderRadius.circular(8),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
                 children: [
-                  GestureDetector(
-                    child: Icon(
-                      Icons.chevron_left,
-                      color: _colorScheme.primaryContainer,
-                      size: 32,
-                    ),
-                  ),
                   Container(
-                    child: Text(
-                      'Pay for ticket',
-                      style: _textTheme.titleMedium,
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.ticketEntity.movie?.title ?? '',
+                          style: _textTheme.titleMedium,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        _buildRowItem(
+                          title: 'Cinema',
+                          value: widget.ticketEntity.session?.theaterName ?? '',
+                        ),
+                        _buildRowItem(
+                          title: 'Date',
+                          value: widget.ticketEntity.session?.time
+                                  ?.toLocalHHnnddmmyyyy() ??
+                              '',
+                        ),
+                        _buildRowItem(
+                          title: 'Thời lượng',
+                          value: widget.ticketEntity.movie?.runtime
+                                  ?.toStringAsFixed(0)
+                                  .addUnitPost('phút') ??
+                              '',
+                        ),
+                        _buildRowItem(
+                          title: 'Seats',
+                          value: widget.ticketEntity.seats?.join(', ') ?? '',
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          'Total',
+                          style: _textTheme.titleMedium,
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        _buildRowItem(
+                          title: 'Số lượng vé',
+                          value: widget.ticketEntity.seats?.length.toString() ??
+                              '0',
+                        ),
+                        _buildRowItem(
+                          title: 'Đơn giá',
+                          value: 100000.addCommas().addUnitPost('đ'),
+                        ),
+                        _buildRowItem(
+                          title: 'Tổng tiền',
+                          value: widget.ticketEntity.totalAmount
+                                  ?.toInt()
+                                  .addCommas()
+                                  .addUnitPost('đ') ??
+                              '',
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(
-                    width: 24,
+                  SvgPicture.asset(
+                    Assets.svg.tearLine,
+                    width: width - 16 * 2,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 16,
+                    ),
+                    child: CustomizedButton(
+                      onTap: () {
+                        final finalTicket = widget.ticketEntity.copyWith(
+                          id: const Uuid().v1(),
+                          createdAt: DateTime.now(),
+                          userId: FirebaseAuth.instance.currentUser?.uid,
+                        );
+                        widget.onConfirm(finalTicket);
+                        // Navigator.pushNamed(
+                        //   context,
+                        //   TicketDetailRoute.routeName,
+                        //   arguments: TicketDetailScreenArg(
+                        //     ticket: finalTicket,
+                        //   ),
+                        // );
+                      },
+                      text: 'Xác nhận',
+                      backgroundColor: _colorScheme.primary,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 32,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: _colorScheme.outline,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.ticketEntity.movie?.title ?? '',
-                            style: _textTheme.titleMedium,
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          _buildRowItem(
-                            title: 'Cinema',
-                            value:
-                                widget.ticketEntity.session?.theaterName ?? '',
-                          ),
-                          _buildRowItem(
-                            title: 'Date',
-                            value: widget.ticketEntity.session?.time
-                                    ?.toLocalHHnnddmmyyyy() ??
-                                '',
-                          ),
-                          _buildRowItem(
-                            title: 'Thời lượng',
-                            value: widget.ticketEntity.movie?.runtime
-                                    ?.toStringAsFixed(0)
-                                    .addUnitPost('phút') ??
-                                '',
-                          ),
-                          _buildRowItem(
-                            title: 'Seats',
-                            value: widget.ticketEntity.seats
-                                    ?.map((e) => e.position)
-                                    .join(', ') ??
-                                '',
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            'Total',
-                            style: _textTheme.titleMedium,
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          _buildRowItem(
-                            title: 'Số lượng vé',
-                            value:
-                                widget.ticketEntity.seats?.length.toString() ??
-                                    '0',
-                          ),
-                          _buildRowItem(
-                            title: 'Đơn giá',
-                            value: 100000.addCommas().addUnitPost('đ'),
-                          ),
-                          _buildRowItem(
-                            title: 'Tổng tiền',
-                            value: widget.ticketEntity.totalAmount
-                                    ?.toInt()
-                                    .addCommas()
-                                    .addUnitPost('đ') ??
-                                '',
-                          ),
-                        ],
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      Assets.svg.tearLine,
-                      width: width - 16 * 2,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 16,
-                      ),
-                      child: CustomizedButton(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            TicketDetailRoute.routeName,
-                            arguments: TicketDetailScreenArg(
-                              ticket: widget.ticketEntity,
-                            ),
-                          );
-                        },
-                        text: 'Xác nhận',
-                        backgroundColor: _colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

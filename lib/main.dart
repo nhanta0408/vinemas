@@ -13,6 +13,7 @@ import 'core/utils/dotenv.dart';
 import 'di/di.dart';
 import 'features/login/presentation/bloc/login_bloc.dart';
 import 'features/login/presentation/views/login_screen.dart';
+import 'features/seat_selection/data/local/ticket_local_storage_sqf.implement.dart';
 import 'firebase_options.dart';
 import 'l10n/generated/app_localizations.dart';
 
@@ -25,6 +26,7 @@ void main() async {
   await DotEnvUtils.initDotEnv();
   dioClient.initDio();
   setupGetIt();
+  await TicketLocalStorageSqfImplement().initDB();
   runApp(
     DevicePreview(
       enabled: true,
