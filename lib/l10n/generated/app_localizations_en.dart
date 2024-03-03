@@ -60,4 +60,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get other => 'Other';
+
+  @override
+  String get deleteTicketSuccessfully => 'Delete ticket successfully';
+
+  @override
+  String get areYouSureYouWantToDeleteThisTicket => 'Are you sure you want to delete this ticket?';
+
+  @override
+  String get inform => 'Inform';
+
+  @override
+  String get alert => 'Alert';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get cancel => 'Cancel';
 }

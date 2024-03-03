@@ -60,4 +60,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get other => 'Khác';
+
+  @override
+  String get deleteTicketSuccessfully => 'Đã xóa vé thành công';
+
+  @override
+  String get areYouSureYouWantToDeleteThisTicket => 'Bạn có thực sự muốn xóa vé này không?';
+
+  @override
+  String get inform => 'Thông báo';
+
+  @override
+  String get alert => 'Cảnh báo';
+
+  @override
+  String get confirm => 'Xác nhận';
+
+  @override
+  String get cancel => 'Hủy';
 }

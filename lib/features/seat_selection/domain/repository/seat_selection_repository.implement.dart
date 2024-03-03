@@ -17,4 +17,9 @@ class SeatSelectionRepositoryImplement extends SeatSelectionRepository {
   Future<List<TicketModel>> getTickets({required String userId}) {
     return datasource.readTickets(userId: userId);
   }
+
+  @override
+  Future<int?> deleteTicket(String ticketId) {
+    return datasource.deleteTicket(ticketId);
+  }
 }

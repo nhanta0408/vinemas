@@ -17,5 +17,11 @@
     "vote": "lượt bình chọn",
     "male": "Nam",
     "female": "Nữ",
-    "other": "Khác"
+    "other": "Khác",
+    "deleteTicketSuccessfully": "Đã xóa vé thành công",
+    "areYouSureYouWantToDeleteThisTicket": "Bạn có thực sự muốn xóa vé này không?",
+    "inform": "Thông báo",
+    "alert": "Cảnh báo",
+    "confirm": "Xác nhận",
+    "cancel": "Hủy"
 }

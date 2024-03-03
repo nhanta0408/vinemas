@@ -1,5 +1,10 @@
 import 'package:get_it/get_it.dart';
 
+import '../features/account/domain/repo/account_repository.dart';
+import '../features/account/domain/repo/account_repository.implement.dart';
+import '../features/account/domain/usecases/account_usecase.dart';
+import '../features/account/domain/usecases/account_usecase.implement.dart';
+import '../features/account/presentation/bloc/account_bloc.dart';
 import '../features/home/data/datasource/remote/home_rest_api.dart';
 import '../features/home/domain/repo/home_repository.dart';
 import '../features/home/domain/repo/home_repository.implement.dart';
@@ -64,5 +69,14 @@ void setupGetIt() {
     )
     ..registerFactory<SeatSelectionBloc>(
       () => SeatSelectionBloc(getIt<SeatSelectionUsecase>()),
+    )
+    ..registerFactory<AccountRepository>(
+      AccountRepositoryImplement.new,
+    )
+    ..registerFactory<AccountUsecase>(
+      () => AccountUsecaseImplement(getIt<AccountRepository>()),
+    )
+    ..registerFactory<AccountBloc>(
+      () => AccountBloc(getIt<AccountUsecase>(), getIt<SeatSelectionUsecase>()),
     );
 }

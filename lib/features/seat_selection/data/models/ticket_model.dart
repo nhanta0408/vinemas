@@ -12,6 +12,8 @@ class TicketModel {
   String? title;
   // theater_name
   String? theaterName;
+  // poster_url
+  String? posterUrl;
   // run_time
   double? runTime;
   List<String>? seats;
@@ -27,6 +29,7 @@ class TicketModel {
     this.id,
     this.title,
     this.theaterName,
+    this.posterUrl,
     this.runTime,
     this.seats,
     this.amountPerSeat,
@@ -40,6 +43,7 @@ class TicketModel {
       id: json['id'] as String?,
       title: json['title'] as String?,
       theaterName: json['theater_name'] as String?,
+      posterUrl: json['poster_url'] as String?,
       runTime: json['runTime'] as double?,
       seats: (jsonDecode(json['seats'] as String? ?? '[]') as List)
           .map((e) => e as String)
@@ -56,6 +60,7 @@ class TicketModel {
       'id': id,
       'title': title,
       'theater_name': theaterName,
+      'poster_url': posterUrl,
       'run_time': runTime,
       'seats': jsonEncode(seats),
       'amount_per_seat': amountPerSeat,
@@ -71,6 +76,7 @@ class TicketModel {
       movie: MovieDetailEntity(
         title: title,
         runtime: runTime,
+        posterUrl: posterUrl,
       ),
       session: SessionModel(
         theaterName: theaterName,
@@ -94,6 +100,7 @@ class TicketModel {
       totalAmount: entity.totalAmount,
       createdAt: entity.createdAt,
       userId: entity.userId,
+      posterUrl: entity.movie?.posterUrl,
     );
   }
 }

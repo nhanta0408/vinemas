@@ -206,6 +206,42 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Khác'**
   String get other;
+
+  /// No description provided for @deleteTicketSuccessfully.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã xóa vé thành công'**
+  String get deleteTicketSuccessfully;
+
+  /// No description provided for @areYouSureYouWantToDeleteThisTicket.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn có thực sự muốn xóa vé này không?'**
+  String get areYouSureYouWantToDeleteThisTicket;
+
+  /// No description provided for @inform.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thông báo'**
+  String get inform;
+
+  /// No description provided for @alert.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cảnh báo'**
+  String get alert;
+
+  /// No description provided for @confirm.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xác nhận'**
+  String get confirm;
+
+  /// No description provided for @cancel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hủy'**
+  String get cancel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

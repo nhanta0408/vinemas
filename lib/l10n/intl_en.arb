@@ -17,5 +17,11 @@
     "vote": "vote",
     "male": "Male",
     "female": "Female",
-    "other": "Other"
+    "other": "Other",
+    "deleteTicketSuccessfully": "Delete ticket successfully",
+    "areYouSureYouWantToDeleteThisTicket": "Are you sure you want to delete this ticket?",
+    "inform": "Inform",
+    "alert": "Alert",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
 }

@@ -22,10 +22,13 @@ class SeatSelectionBloc extends Bloc<SeatSelectionEvent, SeatSelectionState> {
     emit(SeatSelectionState(status: BlocStatusState.loading));
     try {
       await _usecases.createTicket(event.ticket);
-      final listTicket = await _usecases.getTickets(
-        userId: FirebaseAuth.instance.currentUser?.uid ?? '--',
+
+      emit(
+        SeatSelectionState(
+          status: BlocStatusState.success,
+          ticket: event.ticket,
+        ),
       );
-      emit(SeatSelectionState(status: BlocStatusState.success));
     } catch (e) {
       emit(
         SeatSelectionState(

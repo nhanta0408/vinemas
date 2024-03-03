@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/common/constants/app_constants.dart';
+import '../../../../../core/utils/app_function.dart';
+import '../../../../../core/utils/date_utils.dart';
+import '../../../../seat_selection/domain/entities/ticket_entity.dart';
+
 class AccountPaymentHistoryWidget extends StatefulWidget {
-  const AccountPaymentHistoryWidget({super.key});
+  final List<TicketEntity> tickets;
+  final Function(String) onDelete;
+  const AccountPaymentHistoryWidget({
+    super.key,
+    required this.tickets,
+    required this.onDelete,
+  });
 
   @override
   State<AccountPaymentHistoryWidget> createState() =>
@@ -27,61 +38,86 @@ class _AccountPaymentHistoryWidgetState
         const SizedBox(
           height: 12,
         ),
-        Column(
-          children: [
-            Container(
-              width: double.infinity,
-              alignment: Alignment.center,
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return _buildTicketItem(widget.tickets[index]);
+          },
+          separatorBuilder: (context, index) {
+            return const SizedBox(
+              height: 16,
+            );
+          },
+          itemCount: widget.tickets.length,
+        ),
+        // Column(
+        //   children: [
+        //     _buildTicketItem(),
+        //   ],
+        // ),
+      ],
+    );
+  }
+
+  Container _buildTicketItem(TicketEntity ticket) {
+    return Container(
+      width: double.infinity,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: _colorScheme.outline,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
               decoration: BoxDecoration(
-                color: _colorScheme.outline,
                 borderRadius: BorderRadius.circular(8),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      clipBehavior: Clip.hardEdge,
-                      child: Image.network(
-                        'https://upload.wikimedia.org/wikipedia/vi/3/31/Chi%E1%BA%BFn_binh_b%C3%A1o_%C4%91en_2018.jpg',
-                        width: 56,
-                        height: 88,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Wakanda Forever',
-                          style: _textTheme.titleMedium,
-                        ),
-                        Text(
-                          '6 April 2024, 14:40',
-                          style: _textTheme.bodyMedium,
-                        ),
-                        Text(
-                          'CGV Cộng Hòa',
-                          style: _textTheme.bodyMedium
-                              ?.copyWith(color: _colorScheme.primaryContainer),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              clipBehavior: Clip.hardEdge,
+              child: Image.network(
+                getImageUrl(ticket.movie?.posterUrl),
+                width: 56,
+                height: 88,
               ),
             ),
-          ],
-        ),
-      ],
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          Expanded(
+            flex: 5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  ticket.movie?.title ?? '',
+                  style: _textTheme.titleMedium,
+                ),
+                Text(
+                  ticket.createdAt?.toLocalHHnnddmmyyWithCommas() ?? '',
+                  style: _textTheme.bodyMedium,
+                ),
+                Text(
+                  ticket.session?.theaterName ?? '',
+                  style: _textTheme.bodyMedium
+                      ?.copyWith(color: _colorScheme.primaryContainer),
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              if (ticket.id != null) {
+                widget.onDelete(ticket.id!);
+              }
+            },
+            child: const Icon(Icons.delete),
+          ),
+        ],
+      ),
     );
   }
 }

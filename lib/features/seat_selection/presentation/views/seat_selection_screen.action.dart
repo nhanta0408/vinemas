@@ -12,6 +12,16 @@ extension _SeatSelectionScreenAction on _SeatSelectionScreenState {
           title: 'Error',
           message: state.errorMessage,
         );
+      } else if (state.status == BlocStatusState.success) {
+        if (state.ticket != null) {
+          Navigator.pushNamed(
+            context,
+            TicketDetailRoute.routeName,
+            arguments: TicketDetailScreenArg(
+              ticket: state.ticket!,
+            ),
+          );
+        }
       }
     }
   }

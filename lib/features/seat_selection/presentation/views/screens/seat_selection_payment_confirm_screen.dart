@@ -173,13 +173,6 @@ class _SeatSelectionPaymentConfirmScreenState
                           userId: FirebaseAuth.instance.currentUser?.uid,
                         );
                         widget.onConfirm(finalTicket);
-                        // Navigator.pushNamed(
-                        //   context,
-                        //   TicketDetailRoute.routeName,
-                        //   arguments: TicketDetailScreenArg(
-                        //     ticket: finalTicket,
-                        //   ),
-                        // );
                       },
                       text: 'Xác nhận',
                       backgroundColor: _colorScheme.primary,

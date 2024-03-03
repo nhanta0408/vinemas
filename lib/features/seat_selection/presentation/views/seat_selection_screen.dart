@@ -12,6 +12,8 @@ import '../../../../core/utils/date_utils.dart';
 import '../../../../di/di.dart';
 import '../../../movie_detail/data/models/session_model.dart';
 import '../../../movie_detail/domain/entities/movie_detail_entity.dart';
+import '../../../ticket_detail/presentation/ticket_detail_route.dart';
+import '../../../ticket_detail/presentation/views/ticket_detail_screen.dart';
 import '../bloc/seat_selection_bloc.dart';
 import '../bloc/seat_selection_event.dart';
 import '../bloc/seat_selection_state.dart';
@@ -167,17 +169,6 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                         );
                       },
                     );
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (_) => BlocProvider.value(
-                    //       value: BlocProvider.of<SeatSelectionBloc>(context),
-                    //       child: SeatSelectionPaymentConfirmScreen(
-                    //         ticketEntity: ticket,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // );
                   },
                 ),
               ),

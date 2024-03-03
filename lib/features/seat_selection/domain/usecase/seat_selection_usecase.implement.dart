@@ -18,4 +18,10 @@ class SeatSelectionUsecaseImplement extends SeatSelectionUsecase {
     final results = await repo.getTickets(userId: userId);
     return results.map((e) => e.convertToEntity()).toList();
   }
+
+  @override
+  Future<int?> deleteTicket(String ticketId) async {
+    final results = await repo.deleteTicket(ticketId);
+    return results;
+  }
 }

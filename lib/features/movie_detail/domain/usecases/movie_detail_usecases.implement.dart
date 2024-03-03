@@ -53,6 +53,7 @@ class MovieDetailUsecaseImplement extends MovieDetailUsecases {
           .toList(),
       youtubeName: bestVideoName,
       youtubeUrl: bestVideosUrl,
+      posterUrl: movieDetailModel.posterPath,
     );
   }
 
