@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../core/common/constants/assets.dart';
+import '../../../../../core/utils/localizations.dart';
 
 class AccountSettingsWidget extends StatefulWidget {
   const AccountSettingsWidget({super.key});
@@ -22,7 +23,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Settings',
+          translate(context).settings,
           style: _textTheme.titleMedium
               ?.copyWith(color: _colorScheme.primaryContainer),
         ),
@@ -39,7 +40,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Language',
+            translate(context).language,
             style: _textTheme.titleSmall,
           ),
           Row(
@@ -81,7 +82,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Receive notifications',
+            translate(context).receiveNotifications,
             style: _textTheme.titleSmall,
           ),
           Switch(

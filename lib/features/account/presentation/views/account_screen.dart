@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,7 +12,7 @@ import '../../../../core/common/constants/assets.dart';
 import '../../../../core/common/enums/gender.dart';
 import '../../../../core/common/model/bloc_status_state.dart';
 import '../../../../core/utils/localizations.dart';
-import '../../domain/entities/user_entity.dart';
+import '../../domain/entities/account_entity.dart';
 import '../bloc/account_bloc.dart';
 import '../bloc/account_event.dart';
 import '../bloc/account_state.dart';
@@ -53,64 +55,71 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  final UserEntity _user = UserEntity(
-    fullName: 'Jack Sparrow',
-    avatarUrl:
-        'https://static.wikia.nocookie.net/great-characters/images/d/d8/Jacksparrow.jpeg/revision/latest/thumbnail/width/360/height/360?cb=20190323132109',
-    phoneNumber: '389191857',
-    email: 'jack.sparrow@gmail.com',
-    gender: Gender.male,
-    city: 'Hồ Chí Minh',
-    dateOfBirth: DateTime(1975),
-  );
+  AccountEntity? _account;
   @override
   Widget build(BuildContext context) {
     _themeData = Theme.of(context);
     return BlocConsumer<AccountBloc, AccountState>(
       listener: blocListener,
+      buildWhen: (previous, current) {
+        if (current.status == BlocStatusState.loading) {
+          return false;
+        }
+        return true;
+      },
       builder: (context, state) {
+        _account = state.accountEntity ?? _account;
         return Scaffold(
           appBar: _buildAppbar(context),
-          body: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  AccountAvatarNameWidget(
-                    name: _user.fullName,
-                    avatarUrl: _user.avatarUrl,
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  AccountInformationWidget(
-                    initialUser: _user,
-                    onSaveChanged: (user) {
-                      print(user.toString());
-                    },
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const AccountSettingsWidget(),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const AccountSavedCardWidget(),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  AccountPaymentHistoryWidget(
-                    tickets: state.tickets ?? [],
-                    onDelete: (ticketId) async {
-                      await deleteTicket(ticketId);
-                    },
-                  ),
-                ],
+          body: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    AccountAvatarNameWidget(
+                      name: _account?.fullName,
+                      avatarUrl: _account?.avatarUrl,
+                      onChangeAvatar: (imageData) {
+                        onChangedAvatar(imageData);
+                      },
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    AccountInformationWidget(
+                      currentAccount: _account,
+                      onSaveChanged: (account) {
+                        print(account.toString());
+                        onSaveAccountData(account);
+                      },
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    const AccountSettingsWidget(),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    const AccountSavedCardWidget(),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    AccountPaymentHistoryWidget(
+                      tickets: state.tickets ?? [],
+                      onDelete: (ticketId) async {
+                        await deleteTicket(ticketId);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

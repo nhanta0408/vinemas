@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import '../../../../core/common/enums/gender.dart';
 
-class UserEntity {
+class AccountEntity {
   String? id;
   String? fullName;
   String? avatarUrl;
@@ -10,7 +10,7 @@ class UserEntity {
   Gender? gender;
   String? city;
   DateTime? dateOfBirth;
-  UserEntity({
+  AccountEntity({
     this.id,
     this.fullName,
     this.avatarUrl,
@@ -21,7 +21,7 @@ class UserEntity {
     this.dateOfBirth,
   });
 
-  UserEntity copyWith({
+  AccountEntity copyWith({
     String? id,
     String? fullName,
     String? avatarUrl,
@@ -31,7 +31,8 @@ class UserEntity {
     String? city,
     DateTime? dateOfBirth,
   }) {
-    return UserEntity(
+    return AccountEntity(
+      id: id ?? this.id,
       fullName: fullName ?? this.fullName,
       avatarUrl: avatarUrl ?? this.avatarUrl,
       phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -43,7 +44,7 @@ class UserEntity {
   }
 
   @override
-  bool operator ==(covariant UserEntity other) {
+  bool operator ==(covariant AccountEntity other) {
     if (identical(this, other)) {
       return true;
     }

@@ -242,6 +242,114 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Hủy'**
   String get cancel;
+
+  /// No description provided for @error.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lỗi'**
+  String get error;
+
+  /// No description provided for @saveAccountSuccessfully.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã lưu thông tin tài khoản thành công'**
+  String get saveAccountSuccessfully;
+
+  /// No description provided for @save.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu'**
+  String get save;
+
+  /// No description provided for @information.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thông tin'**
+  String get information;
+
+  /// No description provided for @dateOfBirth.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngày sinh'**
+  String get dateOfBirth;
+
+  /// No description provided for @phoneNumber.
+  ///
+  /// In vi, this message translates to:
+  /// **'Số điện thoại'**
+  String get phoneNumber;
+
+  /// No description provided for @email.
+  ///
+  /// In vi, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @gender.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giới tính'**
+  String get gender;
+
+  /// No description provided for @city.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tỉnh thành'**
+  String get city;
+
+  /// No description provided for @settings.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cài đặt'**
+  String get settings;
+
+  /// No description provided for @language.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngôn ngữ'**
+  String get language;
+
+  /// No description provided for @receiveNotifications.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhận thông báo'**
+  String get receiveNotifications;
+
+  /// No description provided for @savedCard.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thẻ đã lưu'**
+  String get savedCard;
+
+  /// No description provided for @addNewCard.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thêm thẻ mới'**
+  String get addNewCard;
+
+  /// No description provided for @paymentHistory.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lịch sử mua vé'**
+  String get paymentHistory;
+
+  /// No description provided for @changeAvatarSuccessfully.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thay đổi ảnh đại diện thành công'**
+  String get changeAvatarSuccessfully;
+
+  /// No description provided for @emailNotFound.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không tìm thấy email'**
+  String get emailNotFound;
+
+  /// No description provided for @fullName.
+  ///
+  /// In vi, this message translates to:
+  /// **'Họ và tên'**
+  String get fullName;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

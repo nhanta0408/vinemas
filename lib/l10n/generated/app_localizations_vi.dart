@@ -78,4 +78,58 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get cancel => 'Hủy';
+
+  @override
+  String get error => 'Lỗi';
+
+  @override
+  String get saveAccountSuccessfully => 'Đã lưu thông tin tài khoản thành công';
+
+  @override
+  String get save => 'Lưu';
+
+  @override
+  String get information => 'Thông tin';
+
+  @override
+  String get dateOfBirth => 'Ngày sinh';
+
+  @override
+  String get phoneNumber => 'Số điện thoại';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get gender => 'Giới tính';
+
+  @override
+  String get city => 'Tỉnh thành';
+
+  @override
+  String get settings => 'Cài đặt';
+
+  @override
+  String get language => 'Ngôn ngữ';
+
+  @override
+  String get receiveNotifications => 'Nhận thông báo';
+
+  @override
+  String get savedCard => 'Thẻ đã lưu';
+
+  @override
+  String get addNewCard => 'Thêm thẻ mới';
+
+  @override
+  String get paymentHistory => 'Lịch sử mua vé';
+
+  @override
+  String get changeAvatarSuccessfully => 'Thay đổi ảnh đại diện thành công';
+
+  @override
+  String get emailNotFound => 'Không tìm thấy email';
+
+  @override
+  String get fullName => 'Họ và tên';
 }

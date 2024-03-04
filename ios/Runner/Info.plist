@@ -52,8 +52,6 @@
 		<string>es</string>
 	</array>
 	<key>GIDClientID</key>
-	<!-- TODO Replace this value: -->
-	<!-- Copied from GoogleService-Info.plist key CLIENT_ID -->
 	<string>653927138262-o3v6nmrhgq103oddea9t0cck16st5u06.apps.googleusercontent.com</string>
 	<key>CFBundleURLTypes</key>
 	<array>
@@ -62,8 +60,6 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<!-- TODO Replace this value: -->
-				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
 				<string>com.googleusercontent.apps.653927138262-o3v6nmrhgq103oddea9t0cck16st5u06</string>
 				<string>fb305443389188571</string>
 			</array>
@@ -75,10 +71,14 @@
 	<string>b55c6d240d0612376df0c993b4760e74</string>
 	<key>FacebookDisplayName</key>
 	<string>Vinemas</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Vinemas uses the photo library for uploading the avatar</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Vinemas uses the camera for uploading the avatar</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-	<string>fbapi</string>
-	<string>fb-messenger-share-api</string>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
 	</array>
 </dict>
 </plist>

@@ -1,5 +1,8 @@
 import 'package:get_it/get_it.dart';
 
+import '../features/account/data/remote/account_firebase_storage_datasource.dart';
+import '../features/account/data/remote/account_firestore_datasource.dart';
+import '../features/account/data/remote/account_firestore_datasource.implement.dart';
 import '../features/account/domain/repo/account_repository.dart';
 import '../features/account/domain/repo/account_repository.implement.dart';
 import '../features/account/domain/usecases/account_usecase.dart';
@@ -70,8 +73,17 @@ void setupGetIt() {
     ..registerFactory<SeatSelectionBloc>(
       () => SeatSelectionBloc(getIt<SeatSelectionUsecase>()),
     )
+    ..registerFactory<AccountFirebaseStorageDataSource>(
+      AccountFirebaseStorageDataSource.new,
+    )
+    ..registerFactory<AccountFirestoreDataSource>(
+      AccountFirestoreDataSourceImplement.new,
+    )
     ..registerFactory<AccountRepository>(
-      AccountRepositoryImplement.new,
+      () => AccountRepositoryImplement(
+        firestoreDataSource: getIt<AccountFirestoreDataSource>(),
+        firebaseStorageDataSource: getIt<AccountFirebaseStorageDataSource>(),
+      ),
     )
     ..registerFactory<AccountUsecase>(
       () => AccountUsecaseImplement(getIt<AccountRepository>()),

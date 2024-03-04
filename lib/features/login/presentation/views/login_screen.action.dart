@@ -28,13 +28,12 @@ extension _LoginScreenAction on _LoginScreenState {
     if (kDebugMode) {
       print('On login');
     }
-    Navigator.pushNamed(context, HomeRoute.routeName);
-    // bloc.add(
-    //   UserPasswordLoginEvent(
-    //     username: 'thnhan.sdh212@hcmut.edu.vn',
-    //     password: '123456',
-    //   ),
-    // );
+    bloc.add(
+      UserPasswordLoginEvent(
+        username: 'thnhan.sdh212@hcmut.edu.vn',
+        password: '123456',
+      ),
+    );
   }
 
   void onForgotPassword() {

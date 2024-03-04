@@ -1,11 +1,22 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-import '../../../../../core/common/constants/assets.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+
+import 'package:image_picker/image_picker.dart';
 
 class AccountAvatarNameWidget extends StatefulWidget {
   final String? avatarUrl;
   final String? name;
-  const AccountAvatarNameWidget({super.key, this.avatarUrl, this.name});
+  final Function(Uint8List) onChangeAvatar;
+  const AccountAvatarNameWidget({
+    super.key,
+    this.avatarUrl,
+    this.name,
+    required this.onChangeAvatar,
+  });
 
   @override
   State<AccountAvatarNameWidget> createState() =>
@@ -16,21 +27,62 @@ class _AccountAvatarNameWidgetState extends State<AccountAvatarNameWidget> {
   late ThemeData _themeData;
   TextTheme get _textTheme => _themeData.textTheme;
   ColorScheme get _colorScheme => _themeData.colorScheme;
+  final ImagePicker _picker = ImagePicker();
+  Uint8List? imageData;
   @override
   Widget build(BuildContext context) {
     _themeData = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        widget.avatarUrl?.isNotEmpty == true
-            ? CircleAvatar(
-                radius: 40,
-                backgroundImage: NetworkImage(widget.avatarUrl!),
-              )
-            : const Icon(
-                Icons.person,
-                size: 40,
-              ),
+        GestureDetector(
+          onTap: () async {
+            final image = await _picker.pickImage(source: ImageSource.gallery);
+            final imageUint8List = await image?.readAsBytes();
+
+            if (imageUint8List != null) {
+              final imageUint8ListCompressed =
+                  await FlutterImageCompress.compressWithList(imageUint8List);
+              widget.onChangeAvatar(imageUint8ListCompressed);
+              setState(() {
+                imageData = imageUint8ListCompressed;
+              });
+            }
+            // final storageRef = FirebaseStorage.instance.ref();
+            // final avatarImagesRef = storageRef.child('avatars/nhanta.jpg');
+            // try {
+            //   await avatarImagesRef.putFile(File(image?.path ?? ''));
+            //   final url = await avatarImagesRef.getDownloadURL();
+            //   print('Kết quả url: $url');
+            // } catch (e) {
+            //   print(e);
+            // }
+            // final imageUint8List = await image?.readAsBytes();
+            // setState(() {
+            //   imageData = imageUint8List;
+            // });
+          },
+          child: Builder(
+            builder: (context) {
+              if (imageData != null) {
+                return CircleAvatar(
+                  radius: 40,
+                  backgroundImage: MemoryImage(imageData!),
+                );
+              } else if (widget.avatarUrl?.isNotEmpty == true) {
+                return CircleAvatar(
+                  radius: 40,
+                  backgroundImage: NetworkImage(widget.avatarUrl!),
+                );
+              } else {
+                return const Icon(
+                  Icons.person,
+                  size: 40,
+                );
+              }
+            },
+          ),
+        ),
         const SizedBox(
           height: 16,
         ),

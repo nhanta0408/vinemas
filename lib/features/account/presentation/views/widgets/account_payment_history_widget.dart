@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/common/constants/app_constants.dart';
 import '../../../../../core/utils/app_function.dart';
 import '../../../../../core/utils/date_utils.dart';
+import '../../../../../core/utils/localizations.dart';
 import '../../../../seat_selection/domain/entities/ticket_entity.dart';
 
 class AccountPaymentHistoryWidget extends StatefulWidget {
@@ -31,7 +32,7 @@ class _AccountPaymentHistoryWidgetState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Payment history',
+          translate(context).paymentHistory,
           style: _textTheme.titleMedium
               ?.copyWith(color: _colorScheme.primaryContainer),
         ),

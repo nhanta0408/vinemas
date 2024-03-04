@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../core/common/constants/assets.dart';
+import '../../../../../core/utils/localizations.dart';
 
 class AccountSavedCardWidget extends StatefulWidget {
   const AccountSavedCardWidget({super.key});
@@ -21,7 +22,7 @@ class _AccountSavedCardWidgetState extends State<AccountSavedCardWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Saved cards',
+          translate(context).save,
           style: _textTheme.titleMedium
               ?.copyWith(color: _colorScheme.primaryContainer),
         ),
@@ -73,7 +74,7 @@ class _AccountSavedCardWidgetState extends State<AccountSavedCardWidget> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                'Add new card',
+                translate(context).addNewCard,
                 style: _textTheme.titleMedium,
               ),
             ),

@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -7,14 +8,15 @@ import '../../../../../core/common/constants/assets.dart';
 import '../../../../../core/common/enums/gender.dart';
 import '../../../../../core/common/widget/customize_button.dart';
 import '../../../../../core/utils/date_utils.dart';
-import '../../../domain/entities/user_entity.dart';
+import '../../../../../core/utils/localizations.dart';
+import '../../../domain/entities/account_entity.dart';
 
 class AccountInformationWidget extends StatefulWidget {
-  UserEntity? initialUser;
-  Function(UserEntity) onSaveChanged;
+  AccountEntity? currentAccount;
+  Function(AccountEntity) onSaveChanged;
   AccountInformationWidget({
     Key? key,
-    this.initialUser,
+    this.currentAccount,
     required this.onSaveChanged,
   }) : super(key: key);
 
@@ -37,18 +39,28 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
       );
 
   // Text Controller
+  final fullNameTextController = TextEditingController();
   final phoneNumberTextController = TextEditingController();
   final emailTextController = TextEditingController();
 
   // Data
-  UserEntity? changedUser;
+  AccountEntity? changedAccount;
 
   @override
   void initState() {
     super.initState();
-    changedUser = widget.initialUser?.copyWith(gender: Gender.male);
-    phoneNumberTextController.text = widget.initialUser?.phoneNumber ?? '';
-    emailTextController.text = widget.initialUser?.email ?? '';
+  }
+
+  @override
+  void didUpdateWidget(covariant AccountInformationWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    changedAccount = widget.currentAccount;
+    changedAccount?.gender = changedAccount?.gender ?? Gender.male;
+    changedAccount?.id =
+        changedAccount?.id ?? FirebaseAuth.instance.currentUser?.uid;
+    fullNameTextController.text = widget.currentAccount?.fullName ?? '';
+    phoneNumberTextController.text = widget.currentAccount?.phoneNumber ?? '';
+    emailTextController.text = widget.currentAccount?.email ?? '';
   }
 
   @override
@@ -58,10 +70,11 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Information',
+          translate(context).information,
           style: _textTheme.titleMedium
               ?.copyWith(color: _colorScheme.primaryContainer),
         ),
+        _buildFullName(),
         _buildDateOfBirth(),
         _buildPhoneNumber(),
         _buildEmail(),
@@ -72,32 +85,78 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
     );
   }
 
-  Widget _buildDateOfBirth() {
-    return GestureDetector(
-      onTap: () async {
-        final pickedDate = await showDatePicker(
-          context: context,
-          firstDate: DateTime(1950),
-          lastDate: DateTime(2010),
-          initialDate: changedUser?.dateOfBirth,
-        );
-        if (pickedDate != null) {
-          setState(() {
-            changedUser = changedUser?.copyWith(dateOfBirth: pickedDate);
-          });
-        }
-      },
-      child: Container(
-        padding: const EdgeInsets.only(left: 16, top: 10, bottom: 10),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                'Date of birth',
-                style: _textTheme.titleSmall,
-              ),
+  Widget _buildFullName() {
+    return Container(
+      padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            translate(context).fullName,
+            style: _textTheme.titleSmall,
+          ),
+          Container(
+            constraints: const BoxConstraints(
+              minHeight: 40,
+              maxHeight: 40,
+              minWidth: 175,
+              maxWidth: 175,
             ),
-            Container(
+            child: TextField(
+              controller: fullNameTextController,
+              style: _textTheme.bodyMedium,
+              decoration: InputDecoration(
+                isDense: true,
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 9,
+                  bottom: 11,
+                ),
+                enabledBorder: normalBorder,
+                border: normalBorder,
+                fillColor: Colors.grey,
+              ),
+              onChanged: (value) {
+                setState(() {
+                  changedAccount = changedAccount?.copyWith(fullName: value);
+                });
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDateOfBirth() {
+    return Container(
+      padding: const EdgeInsets.only(left: 16, top: 10, bottom: 10),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              translate(context).dateOfBirth,
+              style: _textTheme.titleSmall,
+            ),
+          ),
+          GestureDetector(
+            onTap: () async {
+              final pickedDate = await showDatePicker(
+                context: context,
+                firstDate: DateTime(1950),
+                lastDate: DateTime(2010),
+                initialDate: changedAccount?.dateOfBirth,
+              );
+              if (pickedDate != null) {
+                setState(() {
+                  changedAccount =
+                      changedAccount?.copyWith(dateOfBirth: pickedDate);
+                });
+              }
+            },
+            child: Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 8,
@@ -112,7 +171,7 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
               child: Row(
                 children: [
                   Text(
-                    changedUser?.dateOfBirth?.toLocalddmmyyyy() ?? '',
+                    changedAccount?.dateOfBirth?.toLocalddmmyyyy() ?? '',
                   ),
                   const SizedBox(
                     width: 8,
@@ -125,8 +184,8 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -138,7 +197,7 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Phone number',
+            translate(context).phoneNumber,
             style: _textTheme.titleSmall,
           ),
           Container(
@@ -186,7 +245,7 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
               ),
               onChanged: (value) {
                 setState(() {
-                  changedUser = changedUser?.copyWith(phoneNumber: value);
+                  changedAccount = changedAccount?.copyWith(phoneNumber: value);
                 });
               },
             ),
@@ -203,7 +262,7 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
         children: [
           Expanded(
             child: Text(
-              'Email',
+              translate(context).email,
               style: _textTheme.titleSmall,
             ),
           ),
@@ -212,6 +271,7 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
             child: TextField(
               controller: emailTextController,
               style: _textTheme.bodyMedium,
+              enabled: false,
               decoration: InputDecoration(
                 isDense: true,
                 isCollapsed: true,
@@ -223,10 +283,11 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
                 ),
                 enabledBorder: normalBorder,
                 border: normalBorder,
+                fillColor: Colors.grey,
               ),
               onChanged: (value) {
                 setState(() {
-                  changedUser = changedUser?.copyWith(email: value);
+                  changedAccount = changedAccount?.copyWith(email: value);
                 });
               },
             ),
@@ -243,17 +304,17 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Gender',
+            translate(context).gender,
             style: _textTheme.titleSmall,
           ),
           Row(
             children: [
               _buildRadioItem(
-                isSelected: changedUser?.gender == Gender.male,
+                isSelected: changedAccount?.gender == Gender.male,
                 value: Gender.male,
                 onChanged: (value) {
                   setState(() {
-                    changedUser = changedUser?.copyWith(gender: value);
+                    changedAccount = changedAccount?.copyWith(gender: value);
                   });
                 },
               ),
@@ -261,11 +322,11 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
                 width: 4,
               ),
               _buildRadioItem(
-                isSelected: changedUser?.gender == Gender.female,
+                isSelected: changedAccount?.gender == Gender.female,
                 value: Gender.female,
                 onChanged: (value) {
                   setState(() {
-                    changedUser = changedUser?.copyWith(gender: value);
+                    changedAccount = changedAccount?.copyWith(gender: value);
                   });
                 },
               ),
@@ -273,11 +334,11 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
                 width: 4,
               ),
               _buildRadioItem(
-                isSelected: changedUser?.gender == Gender.other,
+                isSelected: changedAccount?.gender == Gender.other,
                 value: Gender.other,
                 onChanged: (value) {
                   setState(() {
-                    changedUser = changedUser?.copyWith(gender: value);
+                    changedAccount = changedAccount?.copyWith(gender: value);
                   });
                 },
               ),
@@ -335,7 +396,7 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'City',
+            translate(context).city,
             style: _textTheme.titleSmall,
           ),
           Container(
@@ -366,10 +427,10 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
                     ),
                   )
                   .toList(),
-              value: changedUser?.city,
+              value: changedAccount?.city,
               onChanged: (value) {
                 setState(() {
-                  changedUser = changedUser?.copyWith(city: value);
+                  changedAccount = changedAccount?.copyWith(city: value);
                 });
               },
             ),
@@ -380,7 +441,7 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
   }
 
   Widget _buildSaveButton() {
-    final isChanged = changedUser != widget.initialUser;
+    final isChanged = changedAccount != widget.currentAccount;
     return isChanged
         ? Container(
             padding: const EdgeInsets.only(left: 16, top: 10, bottom: 10),
@@ -390,9 +451,9 @@ class _AccountInformationWidgetState extends State<AccountInformationWidget> {
               child: CustomizedButton(
                 height: 30,
                 onTap: () {
-                  widget.onSaveChanged(changedUser!);
+                  widget.onSaveChanged(changedAccount!);
                 },
-                text: 'Save',
+                text: translate(context).save,
                 backgroundColor: _colorScheme.primary,
               ),
             ),

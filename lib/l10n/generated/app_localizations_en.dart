@@ -78,4 +78,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cancel => 'Cancel';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get saveAccountSuccessfully => 'Save account successfully';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get information => 'Information';
+
+  @override
+  String get dateOfBirth => 'Date of birth';
+
+  @override
+  String get phoneNumber => 'Phone number';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get city => 'City';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get receiveNotifications => 'Receive notifications';
+
+  @override
+  String get savedCard => 'Saved cards';
+
+  @override
+  String get addNewCard => 'Add new card';
+
+  @override
+  String get paymentHistory => 'Payment history';
+
+  @override
+  String get changeAvatarSuccessfully => 'Change avatar successfully';
+
+  @override
+  String get emailNotFound => 'Email not found';
+
+  @override
+  String get fullName => 'Full name';
 }

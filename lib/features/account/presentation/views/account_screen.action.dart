@@ -9,9 +9,11 @@ extension _AccountScreenAction on _AccountScreenState {
       if (state.status == BlocStatusState.failed) {
         showOkAlertDialog(
           context: context,
-          title: 'Error',
+          title: translate(context).error,
           message: state.errorMessage,
         );
+      } else if (state.status == BlocStatusState.success) {
+        state.toastMessage?.show(context);
       }
     }
   }
@@ -44,5 +46,21 @@ extension _AccountScreenAction on _AccountScreenState {
     //   title: translate(context).inform,
     //   message: translate(context).areYouSureYouWantToDeleteThisTicket,
     // );
+  }
+
+  void onSaveAccountData(AccountEntity account) {
+    bloc.add(AccountSaveEvent(account: account));
+  }
+
+  void onChangedAvatar(Uint8List avatarData) {
+    final email = FirebaseAuth.instance.currentUser?.email;
+    if (email == null) {
+      showOkAlertDialog(
+        context: context,
+        message: translate(context).emailNotFound,
+      );
+      return;
+    }
+    bloc.add(AccountChangeAvatarEvent(avatarData: avatarData, email: email));
   }
 }
