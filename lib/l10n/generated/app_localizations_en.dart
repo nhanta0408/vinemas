@@ -132,4 +132,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fullName => 'Full name';
+
+  @override
+  String get areYouSureYouWantToChangeLanguage => 'Are you sure you want to change the language?';
 }

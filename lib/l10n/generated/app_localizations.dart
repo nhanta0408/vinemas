@@ -350,6 +350,12 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Họ và tên'**
   String get fullName;
+
+  /// No description provided for @areYouSureYouWantToChangeLanguage.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn có chắc bạn muốn đổi ngôn ngữ không?'**
+  String get areYouSureYouWantToChangeLanguage;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

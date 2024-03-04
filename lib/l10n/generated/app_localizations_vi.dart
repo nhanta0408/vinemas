@@ -132,4 +132,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get fullName => 'Họ và tên';
+
+  @override
+  String get areYouSureYouWantToChangeLanguage => 'Bạn có chắc bạn muốn đổi ngôn ngữ không?';
 }

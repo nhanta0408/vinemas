@@ -41,5 +41,6 @@
     "paymentHistory": "Payment history",
     "changeAvatarSuccessfully": "Change avatar successfully",
     "emailNotFound": "Email not found",
-    "fullName": "Full name"
+    "fullName": "Full name",
+    "areYouSureYouWantToChangeLanguage": "Are you sure you want to change the language?"
 }

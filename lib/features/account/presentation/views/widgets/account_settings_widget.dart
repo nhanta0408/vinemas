@@ -1,6 +1,10 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../../core/common/bloc/app_bloc/app_bloc.dart';
+import '../../../../../core/common/bloc/app_bloc/app_event.dart';
 import '../../../../../core/common/constants/assets.dart';
 import '../../../../../core/utils/localizations.dart';
 
@@ -16,6 +20,7 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
   TextTheme get _textTheme => _themeData.textTheme;
   ColorScheme get _colorScheme => _themeData.colorScheme;
 
+  bool isSelectedVn = true;
   @override
   Widget build(BuildContext context) {
     _themeData = Theme.of(context);
@@ -45,11 +50,11 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
           ),
           Row(
             children: [
-              _buildLanguageItem(isVn: true, isSelected: false),
+              _buildLanguageItem(isVn: true, isSelected: isSelectedVn),
               const SizedBox(
                 width: 8,
               ),
-              _buildLanguageItem(isVn: false, isSelected: true),
+              _buildLanguageItem(isVn: false, isSelected: !isSelectedVn),
             ],
           ),
         ],
@@ -57,20 +62,52 @@ class _AccountSettingsWidgetState extends State<AccountSettingsWidget> {
     );
   }
 
-  Container _buildLanguageItem({required bool isVn, required bool isSelected}) {
+  Widget _buildLanguageItem({required bool isVn, required bool isSelected}) {
     final color =
         isSelected ? _colorScheme.onPrimary : _colorScheme.primaryContainer;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          width: isSelected ? 2 : 1,
-          color: color,
+    return GestureDetector(
+      onTap: () async {
+        final res = await showAlertDialog(
+          context: context,
+          title: translate(context).inform,
+          message: translate(context).areYouSureYouWantToChangeLanguage,
+          barrierDismissible: false,
+          actions: [
+            AlertDialogAction(
+              key: 'cancel',
+              label: translate(context).cancel,
+            ),
+            AlertDialogAction(
+              key: 'confirm',
+              label: translate(context).confirm,
+            ),
+          ],
+        );
+        if (res == 'confirm') {
+          // Trong file account_settings_widget.dart
+          // ignore: use_build_context_synchronously
+          BlocProvider.of<AppBloc>(context).add(
+            ChangeLanguageAppEvent(
+              locale: isVn ? const Locale('vi') : const Locale('en'),
+            ),
+          );
+          setState(() {
+            isSelectedVn = isVn;
+          });
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            width: isSelected ? 2 : 1,
+            color: color,
+          ),
         ),
-      ),
-      child: SvgPicture.asset(
-        isVn ? Assets.svg.icVnFlag : Assets.svg.icEnFlag,
+        child: SvgPicture.asset(
+          isVn ? Assets.svg.icVnFlag : Assets.svg.icEnFlag,
+        ),
       ),
     );
   }

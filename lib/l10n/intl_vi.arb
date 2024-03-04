@@ -41,5 +41,6 @@
     "paymentHistory": "Lịch sử mua vé",
     "changeAvatarSuccessfully": "Thay đổi ảnh đại diện thành công",
     "emailNotFound": "Không tìm thấy email",
-    "fullName": "Họ và tên"
+    "fullName": "Họ và tên",
+    "areYouSureYouWantToChangeLanguage": "Bạn có chắc bạn muốn đổi ngôn ngữ không?"
 }
