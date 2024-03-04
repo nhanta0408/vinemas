@@ -43,4 +43,9 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
     }
     return null;
   }
+
+  @override
+  Future<void> signout() {
+    return FirebaseAuth.instance.signOut();
+  }
 }

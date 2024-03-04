@@ -34,3 +34,5 @@ class AccountChangeAvatarEvent extends AccountEvent {
     required this.email,
   });
 }
+
+class AccountSignoutEvent extends AccountEvent {}

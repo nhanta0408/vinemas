@@ -9,7 +9,8 @@ import '../../domain/entities/account_entity.dart';
 enum AccountStateStringCode {
   deleteTicketSuccessfully,
   saveAccountSuccessfully,
-  changeAvatarSuccessfully;
+  changeAvatarSuccessfully,
+  logoutSuccessfully;
 
   void show(BuildContext context) {
     String? message;
@@ -23,6 +24,11 @@ enum AccountStateStringCode {
       case AccountStateStringCode.changeAvatarSuccessfully:
         message = translate(context).changeAvatarSuccessfully;
         break;
+      case AccountStateStringCode.logoutSuccessfully:
+        break;
+    }
+    if (message == null) {
+      return;
     }
     showOkAlertDialog(
       context: context,

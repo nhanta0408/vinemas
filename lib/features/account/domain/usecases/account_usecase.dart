@@ -11,4 +11,5 @@ abstract class AccountUsecase {
     required String email,
     required AccountEntity accountData,
   });
+  Future<void> signOut();
 }

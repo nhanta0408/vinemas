@@ -1,10 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/common/model/bloc_status_state.dart';
-import '../../../login/data/models/sign_in_model.dart';
-import '../../../login/domain/usecases/login_usecases.dart';
 
 import '../../domain/usecases/movie_detail_usecases.dart';
 import 'movie_detail_event.dart';

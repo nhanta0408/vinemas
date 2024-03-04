@@ -135,4 +135,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get areYouSureYouWantToChangeLanguage => 'Are you sure you want to change the language?';
+
+  @override
+  String get areYouSureYouWantToSignOut => 'Are you sure you want to sign out?';
 }

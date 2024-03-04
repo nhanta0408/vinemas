@@ -9,4 +9,5 @@ abstract class AccountRepository {
     required Uint8List avatarData,
     required String email,
   });
+  Future<void> signOut();
 }

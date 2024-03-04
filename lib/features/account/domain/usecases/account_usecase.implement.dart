@@ -32,4 +32,9 @@ class AccountUsecaseImplement extends AccountUsecase {
     final newAccountData = accountData.copyWith(avatarUrl: imageUrl);
     await setAccountData(newAccountData);
   }
+
+  @override
+  Future<void> signOut() {
+    return _repository.signOut();
+  }
 }

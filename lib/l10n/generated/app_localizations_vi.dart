@@ -135,4 +135,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get areYouSureYouWantToChangeLanguage => 'Bạn có chắc bạn muốn đổi ngôn ngữ không?';
+
+  @override
+  String get areYouSureYouWantToSignOut => 'Bạn có chắc bạn muốn đăng xuất không?';
 }

@@ -2,16 +2,15 @@ import 'dart:typed_data';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/common/constants/assets.dart';
-import '../../../../core/common/enums/gender.dart';
 import '../../../../core/common/model/bloc_status_state.dart';
 import '../../../../core/utils/localizations.dart';
+import '../../../login/presentation/login_routes.dart';
 import '../../domain/entities/account_entity.dart';
 import '../bloc/account_bloc.dart';
 import '../bloc/account_event.dart';
@@ -141,11 +140,12 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
       ),
       title: Text(
-        'Profile',
+        translate(context).profile,
         style: _textTheme.titleMedium,
       ),
       actions: [
         GestureDetector(
+          onTap: signout,
           child: Padding(
             padding: const EdgeInsets.only(right: 16),
             child: SvgPicture.asset(

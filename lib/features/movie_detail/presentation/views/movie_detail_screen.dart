@@ -67,7 +67,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   Widget build(BuildContext context) {
     theme = Theme.of(context);
-
     return BlocConsumer<MovieDetailBloc, MovieDetailState>(
       listener: blocListener,
       builder: (context, state) {

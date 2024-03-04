@@ -22,7 +22,7 @@ class _AccountSavedCardWidgetState extends State<AccountSavedCardWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          translate(context).save,
+          translate(context).savedCard,
           style: _textTheme.titleMedium
               ?.copyWith(color: _colorScheme.primaryContainer),
         ),

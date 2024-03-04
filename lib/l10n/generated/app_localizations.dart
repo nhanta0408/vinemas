@@ -356,6 +356,12 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Bạn có chắc bạn muốn đổi ngôn ngữ không?'**
   String get areYouSureYouWantToChangeLanguage;
+
+  /// No description provided for @areYouSureYouWantToSignOut.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn có chắc bạn muốn đăng xuất không?'**
+  String get areYouSureYouWantToSignOut;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

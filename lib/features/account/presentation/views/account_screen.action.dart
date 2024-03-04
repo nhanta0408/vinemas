@@ -13,6 +13,13 @@ extension _AccountScreenAction on _AccountScreenState {
           message: state.errorMessage,
         );
       } else if (state.status == BlocStatusState.success) {
+        if (state.toastMessage == AccountStateStringCode.logoutSuccessfully) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            LoginRoute.routeName,
+            (Route<dynamic> route) => false,
+          );
+          return;
+        }
         state.toastMessage?.show(context);
       }
     }
@@ -62,5 +69,29 @@ extension _AccountScreenAction on _AccountScreenState {
       return;
     }
     bloc.add(AccountChangeAvatarEvent(avatarData: avatarData, email: email));
+  }
+
+  Future<void> signout() async {
+    final res = await showAlertDialog(
+      context: context,
+      title: translate(context).inform,
+      message: translate(context).areYouSureYouWantToSignOut,
+      barrierDismissible: false,
+      actions: [
+        AlertDialogAction(
+          key: 'confirm',
+          label: translate(context).confirm,
+          isDestructiveAction: true,
+        ),
+        AlertDialogAction(
+          key: 'cancel',
+          label: translate(context).cancel,
+          isDefaultAction: true,
+        ),
+      ],
+    );
+    if (res == 'confirm') {
+      bloc.add(AccountSignoutEvent());
+    }
   }
 }

@@ -14,6 +14,8 @@ import '../features/home/domain/repo/home_repository.implement.dart';
 import '../features/home/domain/usecases/home_usecase.dart';
 import '../features/home/domain/usecases/home_usecase.impl.dart';
 import '../features/home/presentation/bloc/home_bloc.dart';
+import '../features/login/data/datasource/auth_remote_datasource.dart';
+import '../features/login/data/datasource/auth_remote_datasource.impl.dart';
 import '../features/movie_detail/data/datasource/remote/movie_detail_rest_api.dart';
 import '../features/movie_detail/data/datasource/remote/session_rest_api.dart';
 import '../features/movie_detail/data/datasource/remote/session_rest_api.implement.dart';
@@ -35,6 +37,7 @@ final getIt = GetIt.instance;
 
 void setupGetIt() {
   getIt
+    ..registerFactory<AuthRemoteDatasource>(AuthRemoteDatasourceImpl.new)
     ..registerFactory<HomeRestApi>(() => HomeRestApi(dioClient.dio))
     ..registerFactory<HomeRepository>(
       () => HomeRepositoryImplement(getIt<HomeRestApi>()),
@@ -83,6 +86,7 @@ void setupGetIt() {
       () => AccountRepositoryImplement(
         firestoreDataSource: getIt<AccountFirestoreDataSource>(),
         firebaseStorageDataSource: getIt<AccountFirebaseStorageDataSource>(),
+        authRemoteDatasource: getIt<AuthRemoteDatasource>(),
       ),
     )
     ..registerFactory<AccountUsecase>(

@@ -42,5 +42,6 @@
     "changeAvatarSuccessfully": "Thay đổi ảnh đại diện thành công",
     "emailNotFound": "Không tìm thấy email",
     "fullName": "Họ và tên",
-    "areYouSureYouWantToChangeLanguage": "Bạn có chắc bạn muốn đổi ngôn ngữ không?"
+    "areYouSureYouWantToChangeLanguage": "Bạn có chắc bạn muốn đổi ngôn ngữ không?",
+    "areYouSureYouWantToSignOut": "Bạn có chắc bạn muốn đăng xuất không?"
 }

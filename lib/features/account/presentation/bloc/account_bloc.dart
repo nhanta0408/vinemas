@@ -23,6 +23,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     on<AccountDeleteTicketEvent>(_onAccountDeleteTicketEvent);
     on<AccountSaveEvent>(_onAccountSaveEvent);
     on<AccountChangeAvatarEvent>(_onAccountChangeAvatarEvent);
+    on<AccountSignoutEvent>(_onAccountSignoutEvent);
   }
   FutureOr<void> _onAccountFirstGetEvent(
     AccountFirstGetEvent event,
@@ -139,6 +140,28 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         state.copyWith(
           status: BlocStatusState.success,
           toastMessage: AccountStateStringCode.changeAvatarSuccessfully,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: BlocStatusState.failed,
+          errorMessage: e.toString(),
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onAccountSignoutEvent(
+    AccountSignoutEvent event,
+    Emitter<AccountState> emit,
+  ) async {
+    try {
+      await _accountUsecases.signOut();
+      emit(
+        state.copyWith(
+          status: BlocStatusState.success,
+          toastMessage: AccountStateStringCode.logoutSuccessfully,
         ),
       );
     } catch (e) {
