@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../../../core/common/constants/app_constants.dart';
 import '../../../../core/common/constants/assets.dart';
 import '../../../../core/common/enums/genre.dart';
 import '../../../../core/common/model/bloc_status_state.dart';

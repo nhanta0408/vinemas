@@ -362,6 +362,12 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Bạn có chắc bạn muốn đăng xuất không?'**
   String get areYouSureYouWantToSignOut;
+
+  /// No description provided for @delete.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xóa'**
+  String get delete;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

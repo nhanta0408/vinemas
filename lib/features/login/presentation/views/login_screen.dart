@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/common/constants/assets.dart';
 import '../../../../core/common/widget/customize_button.dart';
 import '../../../../core/utils/localizations.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 import '../../../home/presentation/home_route.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
@@ -73,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           LoginTextField(
-            title: translate(context).username,
+            title: AppLocalizations.of(context)!.delete,
             isPassword: false,
           ),
           const SizedBox(

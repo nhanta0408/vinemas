@@ -12,6 +12,7 @@ import 'core/utils/dotenv.dart';
 import 'di/di.dart';
 import 'features/login/presentation/bloc/login_bloc.dart';
 import 'features/login/presentation/views/login_screen.dart';
+import 'features/new_home/presentation/views/new_home_screen.dart';
 import 'features/seat_selection/data/local/ticket_local_storage_sqf.implement.dart';
 import 'firebase_options.dart';
 import 'l10n/generated/app_localizations.dart';
@@ -62,13 +63,14 @@ class _MyAppState extends State<MyApp> {
               themeMode: ThemeMode.dark,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
-              locale: state.locale ?? const Locale('vi'),
-              onGenerateRoute: RouteGenerator.generateRoute,
+              locale: state.locale ?? const Locale('en'),
+              onGenerateRoute: RouteGenerator.generate,
               builder: EasyLoading.init(),
-              home: BlocProvider(
-                create: (context) => LoginBloc(),
-                child: const LoginScreen(),
-              ),
+              home: NewHomeScreen(),
+              // home: BlocProvider(
+              //   create: (context) => LoginBloc(),
+              //   child: const LoginScreen(),
+              // ),
             );
           },
         ),

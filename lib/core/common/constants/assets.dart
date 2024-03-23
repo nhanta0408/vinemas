@@ -22,6 +22,7 @@ class SvgAssets {
   final String icRadioUnchecked = 'assets/svg/ic_radio_unchecked.svg';
   final String icEmptyPopcorn = 'assets/svg/ic_empty_popcorn.svg';
   final String icVisa = 'assets/svg/ic_visa.svg';
+  final String icProductLogo = 'assets/svg/ic_product_logo.svg';
 }
 
 class ImageAssets {

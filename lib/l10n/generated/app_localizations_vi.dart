@@ -138,4 +138,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get areYouSureYouWantToSignOut => 'Bạn có chắc bạn muốn đăng xuất không?';
+
+  @override
+  String get delete => 'Xóa';
 }

@@ -13,6 +13,8 @@ import '../../features/login/presentation/views/login_screen.dart';
 import '../../features/movie_detail/presentation/bloc/movie_detail_bloc.dart';
 import '../../features/movie_detail/presentation/movie_detail_route.dart';
 import '../../features/movie_detail/presentation/views/movie_detail_screen.dart';
+import '../../features/new_home/presentation/new_home_route.dart';
+import '../../features/new_home/presentation/views/new_home_screen.dart';
 import '../../features/seat_selection/presentation/bloc/seat_selection_bloc.dart';
 import '../../features/seat_selection/presentation/seat_selection_route.dart';
 import '../../features/seat_selection/presentation/views/seat_selection_screen.dart';
@@ -20,81 +22,17 @@ import '../../features/ticket_detail/presentation/ticket_detail_route.dart';
 import '../../features/ticket_detail/presentation/views/ticket_detail_screen.dart';
 
 class RouteGenerator {
-  static Route<dynamic>? generateRoute(RouteSettings settings) {
+  //static => ko cần khởi tạo class => gọi được hàm
+//Route<dynamic>? Function(RouteSettings)?
+  static Route<dynamic>? generate(RouteSettings settings) {
     switch (settings.name) {
-      case LoginRoute.routeName:
+      case NewHomeRoute.screenName:
         return MaterialPageRoute(
           builder: (context) {
-            return BlocProvider(
-              create: (context) => LoginBloc(),
-              child: const LoginScreen(),
-            );
+            return NewHomeScreen();
           },
         );
-      case HomeRoute.routeName:
-        return MaterialPageRoute(
-          builder: (context) {
-            return BlocProvider(
-              create: (context) => getIt<HomeBloc>(),
-              child: const HomeScreen(),
-            );
-          },
-        );
-
-      case MovieDetailRoute.routeName:
-        if (settings.arguments is! MovieDetailScreenArg) {
-          return null;
-        }
-        final arg = settings.arguments as MovieDetailScreenArg;
-        return MaterialPageRoute(
-          builder: (context) {
-            return BlocProvider(
-              create: (context) => getIt<MovieDetailBloc>(),
-              child: MovieDetailScreen(
-                movieId: arg.movieId,
-              ),
-            );
-          },
-        );
-      case SeatSelectionRoute.routeName:
-        if (settings.arguments is! SeatSelectionScreenArg) {
-          return null;
-        }
-        final arg = settings.arguments as SeatSelectionScreenArg;
-        return MaterialPageRoute(
-          builder: (context) {
-            return BlocProvider(
-              create: (context) => getIt<SeatSelectionBloc>(),
-              child: SeatSelectionScreen(
-                sessionModel: arg.sessionModel,
-                movieDetailEntity: arg.movieDetailEntity,
-              ),
-            );
-          },
-        );
-
-      case TicketDetailRoute.routeName:
-        if (settings.arguments is! TicketDetailScreenArg) {
-          return null;
-        }
-        final arg = settings.arguments as TicketDetailScreenArg;
-        return MaterialPageRoute(
-          builder: (context) {
-            return TicketDetailScreen(
-              ticket: arg.ticket,
-            );
-          },
-        );
-
-      case AccountRoute.routeName:
-        return MaterialPageRoute(
-          builder: (context) {
-            return BlocProvider(
-              create: (context) => getIt<AccountBloc>(),
-              child: const AccountScreen(),
-            );
-          },
-        );
+      default:
     }
     return null;
   }
